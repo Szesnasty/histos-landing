@@ -16,6 +16,7 @@ export const SECTION_ANCHORS = {
   problem: '#problem',
   answer: '#answer',
   enforcement: '#enforcement',
+  whyPolicy: '#why-policy',
   identity: '#identity',
   format: '#format',
   scope: '#scope',
