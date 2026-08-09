@@ -43,8 +43,8 @@ function formatOrdinal(index: number): string {
           It's making the boundary explicit, portable and verifiable.
         </p>
         <p class="why-policy__claim-note">
-          One agent? Write the ifs.<br >
-          An agent platform? Write the policy.
+          Three tools? Write the ifs.<br >
+          Thirty? Write the policy.
         </p>
       </div>
     </div>
