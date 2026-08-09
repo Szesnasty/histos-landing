@@ -1,0 +1,85 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Colour themes, as CSS custom properties.
+//
+// These cannot be SCSS variables: the theme changes at runtime, and SCSS is
+// compiled away before the browser ever sees it.
+//
+// Light is defined on bare `:root`. Dark is redefined twice - once under
+// `prefers-color-scheme` (guarded so an explicit light choice still wins) and
+// once under `[data-theme="dark"]` so the toggle beats the system in both
+// directions. Every colour has its first definition on bare `:root`, so nothing
+// is left undefined when neither block applies.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@mixin dark-theme-palette {
+  --page-background: #0b0d10;
+  --surface-raised: #12151a;
+  --surface-sunken: #090b0e;
+  --surface-code: #0e1116;
+
+  --text-primary: #e9ecf1;
+  --text-secondary: #98a2b3;
+  --text-tertiary: #6b7480;
+
+  --border-subtle: #232830;
+  --border-strong: #333a45;
+
+  --accent: #e8b04b;
+  --accent-text: #f0c579;
+  --accent-surface: #1e1a11;
+
+  --verdict-deny: #f08379;
+  --verdict-deny-surface: #1f1312;
+  --verdict-allow: #6fca9b;
+  --verdict-allow-surface: #0f1a15;
+  --verdict-warn: #e2b563;
+  --verdict-warn-surface: #1c1710;
+
+  --elevation-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px -16px rgb(0 0 0 / 70%);
+}
+
+:root {
+  --page-background: #fbfaf8;
+  --surface-raised: #fff;
+  --surface-sunken: #f3f1ec;
+  --surface-code: #14161a;
+
+  --text-primary: #16181d;
+  --text-secondary: #5b6472;
+  --text-tertiary: #8a93a1;
+
+  --border-subtle: #e2ded6;
+  --border-strong: #cdc7bb;
+
+  --accent: #a8761c;
+  --accent-text: #7d570f;
+  --accent-surface: #fdf4e0;
+
+  --verdict-deny: #b4342b;
+  --verdict-deny-surface: #fdeeec;
+  --verdict-allow: #2c7a53;
+  --verdict-allow-surface: #eaf6ef;
+  --verdict-warn: #9a6b12;
+  --verdict-warn-surface: #fdf3df;
+
+  --code-text: #e7e3da;
+  --code-dim: #7f8794;
+  --code-key: #d4a44b;
+  --code-string: #93bd8a;
+  --code-comment: #6b7280;
+  --code-keyword: #a4b8ea;
+
+  --elevation-shadow: 0 1px 2px rgb(16 18 22 / 4%), 0 8px 24px -12px rgb(16 18 22 / 12%);
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-theme-palette;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-theme-palette;
+}

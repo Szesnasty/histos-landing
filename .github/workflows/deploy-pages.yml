@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages needs these; nothing here needs write access to repository contents.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time. In-progress runs are allowed to finish rather than
+# being cancelled, so a half-uploaded artifact never becomes the live site.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate static site
+        # The site is served from https://<user>.github.io/<repository>/, so every
+        # absolute path needs that prefix. `useAssetPath()` applies it to the
+        # hand-written ones; Nuxt applies it to everything it generates itself.
+        env:
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+        run: npm run generate
+
+      - name: Disable Jekyll processing
+        # Without this, GitHub Pages hides every directory beginning with an
+        # underscore - which is where Nuxt puts all of its assets.
+        run: touch .output/public/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

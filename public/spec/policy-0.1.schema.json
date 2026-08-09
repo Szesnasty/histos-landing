@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://histos.dev/spec/policy-0.1.schema.json",
+  "$comment": "Histos Policy Format, Draft 0.1. The $id is an identifier first, but it is meant to resolve: this host MUST serve this document before Draft 0.1 is published, because changing an $id after publication breaks every $ref that points at it. NOT STABLE: see docs/policy-format-draft-0.1.md for what is still open. An engine MUST reject any document with a property not described here (additionalProperties is false everywhere on purpose — a policy an engine only partly understands would enforce only part of what it says).",
+  "title": "Histos Policy, Draft 0.1",
+  "type": "object",
+  "required": ["schema_version", "tools"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "description": "The FORMAT version. An engine refuses a value it does not implement.",
+      "const": "histos.policy/0.1"
+    },
+    "version": {
+      "description": "The ruleset's own revision, chosen by whoever authors the policy. Opaque to the engine; recorded on every audit record.",
+      "type": "string"
+    },
+    "policy_id": { "type": "string" },
+    "created_at": {
+      "description": "ISO-8601. Set by the exporter; never auto-stamped, so a policy is reproducible.",
+      "type": "string"
+    },
+    "requires": {
+      "description": "Capabilities this policy depends on. An engine that does not implement one MUST refuse the whole policy rather than enforce it partially. This — not an engine version — is the portable contract, because a version number stops meaning anything once more than one engine exists.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "canaries": {
+      "description": "Planted tokens. Denied verbatim in an argument, redacted from output. A 'prove it' oracle, not exfiltration prevention.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "tools": {
+      "description": "Keyed by tool name. A mapping, not a list: a repeated tool name is then a duplicate key, which canonical parsing already refuses.",
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/toolName" },
+      "additionalProperties": { "$ref": "#/$defs/tool" }
+    },
+    "roles": {
+      "description": "Keyed by role name. Role-centric rather than inline on the tool, because the reviewable question is 'what can this role do' and because inheritance has no home in the inline form.",
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/role" }
+    }
+  },
+  "$defs": {
+    "toolName": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_.-]*$"
+    },
+    "principalRef": {
+      "description": "A reference to a trusted principal attribute. Deliberately NOT an expression language: exactly 'principal.<attr>' and nothing else.",
+      "type": "string",
+      "pattern": "^principal\\.[A-Za-z_][A-Za-z0-9_]*$"
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "access": {
+          "description": "'write' marks a tool whose effects are not undone by not reading the result. Drives review warnings and the IDOR refusal.",
+          "enum": ["read", "write"],
+          "default": "read"
+        },
+        "sensitivity": {
+          "enum": ["low", "medium", "high", "critical"],
+          "default": "low"
+        },
+        "rate_limit": {
+          "description": "Maximum calls per rolling window, per principal.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "budget": {
+          "description": "Maximum total calls, per principal, for the life of the limit store.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "args": { "$ref": "#/$defs/schema" },
+        "returns": { "$ref": "#/$defs/schema" },
+        "bind": {
+          "description": "Arguments overwritten with trusted principal attributes BEFORE any check runs. This dominates validation: a wrong value becomes un-passable rather than merely detected. Fail-closed if the principal lacks the attribute.",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/principalRef" }
+        },
+        "resource": { "$ref": "#/$defs/resource" },
+        "confirmation": { "$ref": "#/$defs/confirmation" },
+        "output": { "$ref": "#/$defs/output" },
+        "deny_secret_args": {
+          "description": "Deny a checksum-verified secret passed as an argument.",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "schema": {
+      "description": "A deliberately tiny validator — not JSON Schema. Field names follow JSON Schema vocabulary so imported OpenAPI/MCP schemas map across without a rename. Nested objects are shallow-checked; see SECURITY.md.",
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/field" }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": ["string", "integer", "number", "boolean", "array", "object", "any"],
+          "default": "string"
+        },
+        "required": { "type": "boolean", "default": true },
+        "enum": { "type": "array", "minItems": 1 },
+        "min_length": { "type": "integer", "minimum": 0 },
+        "max_length": { "type": "integer", "minimum": 0 },
+        "pattern": {
+          "description": "Compiled at load, so an invalid regex fails loudly. NOT ReDoS-safe: treat patterns imported from third-party schemas as untrusted.",
+          "type": "string"
+        },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" },
+        "exclusive_minimum": { "type": "number" },
+        "exclusive_maximum": { "type": "number" },
+        "multiple_of": { "type": "number", "not": { "const": 0 } },
+        "item_type": {
+          "description": "Element type for an array. String elements are bounded by the same length/pattern caps as a scalar string.",
+          "enum": ["string", "integer", "number", "boolean", "object", "any"]
+        },
+        "sensitive": {
+          "description": "Return schemas only: redacted on the way out unless the principal may view this field.",
+          "enum": ["pii", "secret"]
+        }
+      }
+    },
+    "resource": {
+      "description": "Row-level authorization against the resource ACTUALLY accessed, fetched by a trusted host-provided resolver. Never against a caller-declared argument — that proves self-declaration, not ownership (IDOR).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owns": {
+          "description": "The IDOR-safe shorthand. 'owns: tenant_id' means: resolve the accessed resource, compare its tenant_id to the principal's tenant_id. A string uses the same name on both sides; the object form maps different names.",
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["field", "principal_attr"],
+              "properties": {
+                "field": { "type": "string" },
+                "principal_attr": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "where": {
+          "description": "Further conditions on RESOLVED resource attributes, e.g. refuse to act on a closed record. Compares against a literal or a trusted principal attribute — never against another argument.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/condition" }
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["field", "op"],
+      "additionalProperties": false,
+      "oneOf": [{ "required": ["value"] }, { "required": ["principal_attr"] }],
+      "properties": {
+        "field": { "type": "string" },
+        "op": { "enum": ["eq", "ne", "in", "not_in", "le", "lt", "ge", "gt"] },
+        "value": {},
+        "principal_attr": { "type": "string" }
+      }
+    },
+    "confirmation": {
+      "description": "A trusted, out-of-band approval bound to this exact action. An object rather than a boolean because approver rules will need fields, and widening a boolean later is a breaking change.",
+      "type": "object",
+      "required": ["required"],
+      "additionalProperties": false,
+      "properties": {
+        "required": { "type": "boolean" },
+        "expires_in": {
+          "description": "Seconds an approval stays usable once granted.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "output": {
+      "description": "What may leave the tool and reach the model.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project": {
+          "description": "Deny-by-default on the return surface: drop any field not declared in 'returns'. A secret in an undeclared field is out of reach of name-based redaction.",
+          "type": "boolean",
+          "default": false
+        },
+        "strict": {
+          "description": "Validate the output against 'returns' and act on a mismatch per on_violation.",
+          "type": "boolean",
+          "default": false
+        },
+        "on_violation": {
+          "enum": ["redact_all", "deny", "allow"],
+          "default": "redact_all"
+        },
+        "scan_canary": { "type": "boolean", "default": true },
+        "redact_secrets": { "type": "boolean", "default": true }
+      }
+    },
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "inherits": {
+          "description": "Single parent. Cycle-safe at evaluation; a parent that does not exist is a load error.",
+          "type": "string"
+        },
+        "allow": {
+          "description": "Tools this role may call. Anything not listed is denied.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/toolName" },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

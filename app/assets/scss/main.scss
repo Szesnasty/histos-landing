@@ -1,0 +1,278 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Global stylesheet: reset, base typography, and the handful of layout
+// primitives shared by every section. Anything used by one component lives in
+// that component's own scoped block.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'themes';
+
+// ── reset ────────────────────────────────────────────────────────────────────
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+
+  @include reduced-motion {
+    scroll-behavior: auto;
+  }
+}
+
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--page-background);
+  color: var(--text-primary);
+  font-family: $font-family-sans;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+// ── layout primitives ────────────────────────────────────────────────────────
+
+.page-container {
+  width: 100%;
+  max-width: $page-max-width;
+  margin-inline: auto;
+  padding-inline: $page-gutter;
+}
+
+.prose-column {
+  max-width: $prose-max-width;
+}
+
+.page-section {
+  padding-block: $space-section;
+
+  @include from-medium {
+    padding-block: $space-section-wide;
+  }
+
+  + .page-section {
+    border-top: $border-hairline solid var(--border-subtle);
+  }
+
+  &--sunken {
+    background: var(--surface-sunken);
+  }
+
+  &--compact {
+    padding-block: $space-xlarge;
+
+    @include from-medium {
+      padding-block: $space-huge;
+    }
+  }
+}
+
+// ── base typography ──────────────────────────────────────────────────────────
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-heading;
+  font-weight: $font-weight-strong;
+  text-wrap: balance;
+}
+
+h1 {
+  @include fluid-heading($font-size-display-small, $font-size-display);
+
+  letter-spacing: $letter-spacing-display;
+}
+
+h2 {
+  @include fluid-heading($font-size-heading-large, $font-size-display-small);
+}
+
+h3 {
+  @include fluid-heading($font-size-heading-small, $font-size-heading-medium);
+
+  letter-spacing: $letter-spacing-tight;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+code {
+  font-family: $font-family-mono;
+  font-size: 0.87em;
+}
+
+// Inline code inside running text, as opposed to code inside a CodeBlock.
+p code,
+li code,
+td code,
+th code,
+dd code {
+  background: var(--surface-sunken);
+  border: $border-hairline solid var(--border-subtle);
+  border-radius: $radius-tiny;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+:root[data-theme='dark'] {
+  p code,
+  li code,
+  td code,
+  dd code {
+    background: var(--surface-raised);
+  }
+}
+
+// ── shared text helpers ──────────────────────────────────────────────────────
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.section-lede {
+  margin-top: $space-medium;
+  color: var(--text-secondary);
+  font-size: $font-size-lede-small;
+
+  @include from-medium {
+    font-size: $font-size-lede;
+  }
+}
+
+.section-closing-line {
+  @include accent-rule-block;
+
+  margin-top: $space-xlarge;
+  max-width: $measure-comfortable;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+
+  @include from-medium {
+    font-size: $font-size-body-large;
+  }
+}
+
+.section-intro {
+  margin-top: $space-medium;
+  display: grid;
+  gap: $space-small;
+}
+
+// ── shared grids ─────────────────────────────────────────────────────────────
+
+.card-grid {
+  display: grid;
+  gap: $space-medium;
+  margin-top: $space-xlarge;
+
+  &--two {
+    @include from-medium {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &--three {
+    @include from-medium {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+.split-layout {
+  display: grid;
+  gap: $space-large;
+  margin-top: $space-xlarge;
+  align-items: start;
+
+  @include from-large {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-huge;
+  }
+
+  &--centered {
+    @include from-large {
+      align-items: center;
+    }
+  }
+}
+
+// ── tables ───────────────────────────────────────────────────────────────────
+
+.table-scroll {
+  @include scroll-container;
+
+  margin-top: $space-xlarge;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-body-small;
+  min-width: 544px;
+
+  th,
+  td {
+    text-align: left;
+    padding: $space-small $space-base;
+    border-bottom: $border-hairline solid var(--border-subtle);
+    vertical-align: top;
+  }
+
+  thead th {
+    @include monospace-label($font-size-caption);
+
+    color: var(--text-tertiary);
+    font-family: $font-family-sans;
+    font-weight: $font-weight-strong;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}

@@ -1,0 +1,119 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Reusable mixins. These exist so a pattern is defined once and the intent is
+// named - `@include surface-card` reads better than five repeated declarations,
+// and changing the card treatment is then one edit rather than twenty.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@use 'variables' as *;
+
+// ── responsive ───────────────────────────────────────────────────────────────
+
+@mixin from-small {
+  @media (min-width: $breakpoint-small) {
+    @content;
+  }
+}
+
+@mixin from-medium {
+  @media (min-width: $breakpoint-medium) {
+    @content;
+  }
+}
+
+@mixin from-large {
+  @media (min-width: $breakpoint-large) {
+    @content;
+  }
+}
+
+@mixin from-wide {
+  @media (min-width: $breakpoint-wide) {
+    @content;
+  }
+}
+
+@mixin until-large {
+  @media (max-width: $breakpoint-large - 1px) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// ── surfaces ─────────────────────────────────────────────────────────────────
+
+@mixin surface-card($padding: $space-medium) {
+  background: var(--surface-raised);
+  border: $border-hairline solid var(--border-subtle);
+  border-radius: $radius-large;
+  padding: $padding;
+}
+
+/// A list whose rows are separated by hairlines drawn with the container's
+/// background showing through a 1px grid gap - no per-row border bookkeeping,
+/// and no double border at the ends.
+@mixin hairline-stack {
+  display: grid;
+  gap: $border-hairline;
+  background: var(--border-subtle);
+  border: $border-hairline solid var(--border-subtle);
+  border-radius: $radius-large;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > * {
+    background: var(--surface-raised);
+  }
+}
+
+@mixin accent-rule-block {
+  border-left: $border-accent-rule solid var(--accent);
+  padding-left: $space-medium;
+}
+
+@mixin accent-callout {
+  background: var(--accent-surface);
+  border-left: $border-accent-rule solid var(--accent);
+  border-radius: 0 $radius-base $radius-base 0;
+  padding: $space-small $space-base;
+}
+
+// ── typography ───────────────────────────────────────────────────────────────
+
+@mixin monospace-label($size: $font-size-caption) {
+  font-family: $font-family-mono;
+  font-size: $size;
+  letter-spacing: $letter-spacing-label;
+  text-transform: uppercase;
+}
+
+@mixin fluid-heading($small, $large) {
+  font-size: $small;
+
+  @include from-medium {
+    font-size: $large;
+  }
+}
+
+// ── interaction ──────────────────────────────────────────────────────────────
+
+@mixin focus-ring {
+  outline: $border-emphasis solid var(--accent);
+  outline-offset: $space-hair - 1px;
+  border-radius: 3px;
+}
+
+/// Wide content - tables, diagrams, code - scrolls inside its own box so the
+/// page body never scrolls sideways.
+@mixin scroll-container {
+  overflow-x: auto;
+  border: $border-hairline solid var(--border-subtle);
+  border-radius: $radius-large;
+  background: var(--surface-raised);
+}

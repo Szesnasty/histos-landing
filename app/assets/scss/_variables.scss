@@ -1,0 +1,128 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Design tokens.
+//
+// Every length is expressed in pixels, deliberately and consistently. Fluid type
+// is handled by the breakpoint mixins in `_mixins.scss` rather than by `clamp()`
+// with viewport units, so there is exactly one unit in the whole stylesheet.
+//
+// Colours are NOT SCSS variables: they are CSS custom properties, because they
+// have to change at runtime with the colour theme. SCSS variables are compiled
+// away and cannot. See `_themes.scss`.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── breakpoints ──────────────────────────────────────────────────────────────
+
+$breakpoint-small: 520px;
+$breakpoint-medium: 700px;
+$breakpoint-large: 900px;
+$breakpoint-wide: 1000px;
+
+// ── layout ───────────────────────────────────────────────────────────────────
+
+$page-max-width: 1080px;
+$prose-max-width: 640px;
+$measure-comfortable: 736px;
+$page-gutter: 24px;
+
+$header-height: 60px;
+
+// ── spacing scale ────────────────────────────────────────────────────────────
+
+$space-hair: 4px;
+$space-tiny: 8px;
+$space-small: 12px;
+$space-base: 16px;
+$space-medium: 24px;
+$space-large: 32px;
+$space-xlarge: 40px;
+$space-huge: 56px;
+$space-section-compact: 56px;
+$space-section: 72px;
+$space-section-wide: 104px;
+
+// ── radii ────────────────────────────────────────────────────────────────────
+
+$radius-tiny: 5px;
+$radius-small: 8px;
+$radius-base: 10px;
+$radius-large: 16px;
+$radius-pill: 999px;
+
+// ── borders ──────────────────────────────────────────────────────────────────
+
+$border-hairline: 1px;
+$border-emphasis: 2px;
+$border-accent-rule: 3px;
+
+// ── typography ───────────────────────────────────────────────────────────────
+
+$font-family-sans:
+  ui-sans-serif,
+  -apple-system,
+  blinkmacsystemfont,
+  'Segoe UI',
+  inter,
+  roboto,
+  'Helvetica Neue',
+  arial,
+  sans-serif;
+
+$font-family-mono:
+  ui-monospace,
+  'SF Mono',
+  sfmono-regular,
+  menlo,
+  consolas,
+  'Liberation Mono',
+  monospace;
+
+$font-size-micro: 11px;
+$font-size-caption: 12px;
+$font-size-small: 13px;
+$font-size-detail: 14px;
+$font-size-body-small: 15px;
+$font-size-body: 17px;
+$font-size-body-large: 18px;
+$font-size-lede-small: 17px;
+$font-size-lede: 20px;
+
+$font-size-heading-small: 17px;
+$font-size-heading-medium: 21px;
+$font-size-heading-large: 28px;
+$font-size-display-small: 40px;
+$font-size-display: 68px;
+
+$font-weight-regular: 400;
+$font-weight-medium: 480;
+$font-weight-semibold: 560;
+$font-weight-strong: 620;
+$font-weight-bold: 680;
+
+$line-height-tight: 1.15;
+$line-height-heading: 1.25;
+$line-height-body: 1.65;
+
+$letter-spacing-display: -0.035em;
+$letter-spacing-heading: -0.021em;
+$letter-spacing-tight: -0.018em;
+$letter-spacing-eyebrow: 0.14em;
+$letter-spacing-label: 0.1em;
+
+// ── code blocks ──────────────────────────────────────────────────────────────
+
+$font-size-code: 13px;
+$line-height-code: 1.7;
+$code-padding-block: 18px;
+$code-padding-inline: 18px;
+
+// ── motion ───────────────────────────────────────────────────────────────────
+
+$transition-fast: 0.15s ease;
+$transition-theme: 0.25s ease;
+
+// ── hero ─────────────────────────────────────────────────────────────────────
+
+$hero-copy-max-width: 592px;
+$hero-parallax-overscan: 130px;
+$hero-parallax-factor: 0.3;
+$header-scroll-threshold: 24px;
