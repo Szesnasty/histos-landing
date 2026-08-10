@@ -14,6 +14,7 @@
     <ProblemSection />
     <AnswerSection />
     <RuntimeEnforcementSection />
+    <BenchmarkSection />
     <WhyPolicySection />
     <IdentitySection />
     <PolicyFormatSection />
