@@ -5,6 +5,8 @@ import {
   SWEEP_TEMPERATURES,
   SWEEP_TOTALS,
   SWEEP_METHOD,
+  SWEEP_PRIOR_ART,
+  SWEEP_CONTRIBUTION,
 } from '~/content/benchmarkContent'
 
 /** A cell is "hot" when the attack landed on every run it was given. */
@@ -79,11 +81,14 @@ function isTotal(damage: number, runs: number) {
       </article>
 
       <p class="benchmark__note">
-        The <code>t=0.0</code> column is <strong>one</strong> measurement, not five. Greedy
-        decoding is deterministic, and we checked: all twelve <code>t=0.0</code> cells
-        returned an identical outcome on all five runs. Reporting <code>5/5</code> there
-        would claim a replication that never happened. Every total on this page uses the
-        smaller denominator: 192 measurements out of 240 executed runs.
+        The <code>t=0.0</code> column is counted as <strong>one</strong> measurement, not
+        five. All twelve <code>t=0.0</code> cells returned an identical outcome on all five
+        runs, so those repeats carry no independent information here and reporting
+        <code>5/5</code> would claim a replication that did not happen. That is an
+        observation about these 60 runs, not a proof that greedy decoding is deterministic
+        — published work finds 5&ndash;12% of prompts flipping between seeds at temperature 0
+        on models of this class, so the conservative reading is the one used. Every total on
+        this page uses the smaller denominator: 192 measurements out of 240 executed runs.
       </p>
 
       <ul class="benchmark__readings">
@@ -92,6 +97,23 @@ function isTotal(damage: number, runs: number) {
           <p class="text-secondary">{{ reading.body }}</p>
         </li>
       </ul>
+
+      <div class="benchmark__prior">
+        <h3>What was already known</h3>
+        <p class="text-secondary">
+          Two of the four readings above are re-observations. The effect of sampling
+          temperature on attack success — non-monotonic, and reversing direction between
+          models — has been published before, and these runs did not discover it:
+        </p>
+        <ul>
+          <li v-for="work in SWEEP_PRIOR_ART" :key="work.identifier">
+            <strong>{{ work.work }}</strong>
+            <span class="text-secondary"> {{ work.finding }}</span>
+            <code>{{ work.identifier }}</code>
+          </li>
+        </ul>
+        <p class="benchmark__contribution">{{ SWEEP_CONTRIBUTION }}</p>
+      </div>
 
       <details class="benchmark__method">
         <summary>How this was measured, and what it does not show</summary>
@@ -263,6 +285,43 @@ function isTotal(damage: number, runs: number) {
       font-size: $font-size-body-small;
       max-width: 832px;
     }
+  }
+
+  &__prior {
+    margin-top: $space-huge;
+
+    h3 {
+      font-size: $font-size-body-small;
+    }
+
+    > p {
+      margin-top: $space-tiny;
+      font-size: $font-size-body-small;
+      max-width: 832px;
+    }
+
+    ul {
+      margin: $space-base 0 0;
+      padding-left: $space-medium;
+      display: grid;
+      gap: $space-small;
+      max-width: 832px;
+      font-size: $font-size-body-small;
+    }
+
+    code {
+      margin-left: $space-hair;
+      font-size: $font-size-caption;
+      color: var(--text-secondary);
+    }
+  }
+
+  &__contribution {
+    @include accent-rule-block;
+
+    margin-top: $space-large;
+    font-size: $font-size-body-small;
+    max-width: 832px;
   }
 
   &__method {

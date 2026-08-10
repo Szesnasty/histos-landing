@@ -6,10 +6,15 @@
  * them. Counts, never percentages — 48 cells at five runs each does not support a
  * percentage, and rounding 4/5 to 80% invents precision the sample cannot carry.
  *
- * The t=0.0 column is a SINGLE measurement repeated five times. Greedy decoding is
- * deterministic and we confirmed it: all twelve t=0.0 cells returned an identical
- * outcome on all five runs. It is reported as 1 run, because writing 5/5 there
- * would claim a replication that did not happen.
+ * The t=0.0 column is counted as ONE measurement. All twelve t=0.0 cells returned an
+ * identical outcome across their five runs, so the repeats carry no independent
+ * information and writing 5/5 would claim a replication that did not happen.
+ *
+ * That is a statement about these 60 runs, NOT a claim that greedy decoding is
+ * deterministic. It is not: published work reports 5-12% of prompts changing between
+ * seeds at temperature 0 on models of this class, and non-determinism that originates
+ * in the forward pass rather than in sampling. Counting t=0.0 as n=1 is the
+ * conservative choice either way — it can only shrink our numbers.
  */
 
 export interface SweepCell {
@@ -125,10 +130,45 @@ export const SWEEP_READINGS: SweepReading[] = [
   },
 ]
 
+/**
+ * What was already known before we ran this. Listed because two of the four readings
+ * above are re-observations, not discoveries, and a page that omits the prior work is
+ * claiming a priority it does not have.
+ */
+export interface PriorWork {
+  work: string
+  finding: string
+  identifier: string
+}
+
+export const SWEEP_PRIOR_ART: PriorWork[] = [
+  {
+    work: 'Chan et al., Can LLMs Have a Fever? (IEOM 2024)',
+    finding: 'Swept temperature 0.0-1.0 across four models and found the direction of the effect reverses per model — and that models with a high attack success rate at t=0 tend to get safer as temperature rises. Measured on text, not on executed actions.',
+    identifier: 'IEOM 2024',
+  },
+  {
+    work: 'Wang et al., From ASR to ASP (2025)',
+    finding: 'Fourteen open-weight models across three attacks at three temperatures: "deviations from it show non-monotonic effects on the vulnerability". Also reports gemma staying flat across the range, which our runs reproduce.',
+    identifier: 'arXiv:2505.14368',
+  },
+  {
+    work: 'Ruan et al., ToolEmu (ICLR 2024), Appendix B.2',
+    finding: 'A temperature ablation on one agent at 0.0 / 0.5 / 1.0 — failure incidence 44.3% / 50.0% / 44.3% — concluding "there is not a consistent decreasing trend". Tools are emulated by a model and safety is scored by an LLM judge.',
+    identifier: 'arXiv:2309.15817',
+  },
+]
+
+/**
+ * The gap these runs sit in. Stated narrowly on purpose.
+ */
+export const SWEEP_CONTRIBUTION =
+  'The phenomenon is not ours. What appears to be untested is whether it survives the move from text to an executed action: a tool call is a low-entropy, schema-constrained decision, and published work on structured output finds constrained decoding largely flattens temperature sensitivity. These runs are a test of that — the dependent variable is a tool call whose damage is verified in a database, inside a multi-turn agent loop on real frameworks. It also documents something about benchmark practice: the two flagship agent-security benchmarks default to opposite ends of the temperature range (AgentDojo pins 0.0 in code and never mentions it; WASP inherits 1.0 from VisualWebArena and never mentions it), and if this axis moves the measured attack rate, neither default is neutral.'
+
 export const SWEEP_METHOD = [
   'Each run drives one scenario twice: once as the application is written, once with the identical tools behind a policy. Nothing else differs between the two.',
   'Damage is read from the database after the run, never from what the assistant said. An agent that apologises while cancelling six appointments has still cancelled six appointments.',
   'Models are open-weight builds served locally by Ollama, chosen because they could be run and re-run, not as a ranking. Two further local models were excluded: phi4 and mistral:7b stop emitting tool calls in these harnesses, and granite3.3:8b scored zero damage only because it failed the legitimate tasks as well — a model that does nothing is not a model that is safe.',
-  'The t=0.0 column is one measurement, not five: greedy decoding is deterministic and all twelve t=0.0 cells returned identical outcomes across five runs.',
+  'The t=0.0 column is counted as one measurement, not five: all twelve t=0.0 cells returned identical outcomes across their five runs, so the repeats add no independent information. This is not a claim that greedy decoding is deterministic — reported seed-to-seed variation at temperature 0 exists for models of this class, which is a further reason to take the smaller denominator.',
   'One attack phrasing per scenario, three scenarios, all written by the same author. That is the main limit on how far these numbers generalise, and it is a bigger limit than the sample size.',
 ]
