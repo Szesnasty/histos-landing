@@ -16,6 +16,7 @@ export const SECTION_ANCHORS = {
   problem: '#problem',
   answer: '#answer',
   enforcement: '#enforcement',
+  sweep: '#sweep',
   whyPolicy: '#why-policy',
   identity: '#identity',
   format: '#format',

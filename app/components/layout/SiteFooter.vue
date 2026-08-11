@@ -48,6 +48,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: 'Reading',
     links: [
+      { label: 'The measurement', href: withBasePath('/sweep') },
       { label: 'The problem', href: SECTION_ANCHORS.problem },
       { label: 'Why a policy', href: SECTION_ANCHORS.whyPolicy },
       { label: 'Scope and limits', href: SECTION_ANCHORS.scope },

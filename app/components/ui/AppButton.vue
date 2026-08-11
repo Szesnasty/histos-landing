@@ -1,17 +1,28 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    href: string
+    /** An absolute URL or an in-page anchor. */
+    href?: string
+    /**
+     * An internal route. Rendered through NuxtLink so the deployment base URL is
+     * applied — a hand-written `/sweep` 404s on GitHub Pages, where the site is
+     * served from `/<repository>/`.
+     */
+    to?: string
     variant?: 'primary' | 'secondary' | 'ghost'
     /** External links get `rel="noopener"`; internal anchors must not. */
     external?: boolean
   }>(),
-  { variant: 'secondary', external: false },
+  { href: undefined, to: undefined, variant: 'secondary', external: false },
 )
 </script>
 
 <template>
+  <NuxtLink v-if="to" class="app-button" :class="`app-button--${variant}`" :to="to">
+    <slot />
+  </NuxtLink>
   <a
+    v-else
     class="app-button"
     :class="`app-button--${variant}`"
     :href="href"

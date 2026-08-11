@@ -10,6 +10,7 @@ const NAVIGATION_LINKS = [
   { href: SECTION_ANCHORS.problem, label: 'Problem' },
   { href: SECTION_ANCHORS.answer, label: 'Answer' },
   { href: SECTION_ANCHORS.enforcement, label: 'Enforcement' },
+  { href: SECTION_ANCHORS.sweep, label: 'Measured' },
   { href: SECTION_ANCHORS.whyPolicy, label: 'Why a policy' },
   { href: SECTION_ANCHORS.identity, label: 'Identity' },
   { href: SECTION_ANCHORS.format, label: 'Format' },

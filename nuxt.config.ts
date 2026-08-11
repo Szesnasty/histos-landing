@@ -9,10 +9,10 @@ export default defineNuxtConfig({
   ssr: true,
   nitro: {
     prerender: {
-      // One page, listed explicitly. Crawling is off because the only other
-      // links are into `public/spec/`, which are static files rather than
-      // routes - the crawler would try to prerender them and fail.
-      routes: ['/'],
+      // Both routes listed explicitly. Crawling is off because most of the other
+      // links are into `public/spec/` and `public/sweep.jsonl`, which are static
+      // files rather than routes - the crawler would try to prerender them and fail.
+      routes: ['/', '/sweep'],
       crawlLinks: false,
     },
   },
