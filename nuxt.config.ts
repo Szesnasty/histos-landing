@@ -40,7 +40,7 @@ export default defineNuxtConfig({
 
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Histos - policy enforcement for AI agents',
+      title: 'Histos - the security boundary for agent tool calls',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -55,15 +55,15 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Histos is a deterministic policy-enforcement runtime for AI agents. It does not detect prompt injection - it bounds what a manipulated agent can actually do. In-process, fail-closed, with zero runtime dependencies in the core.',
+            'Histos makes the tool call a security boundary in both directions: which tools an agent may call, with which arguments, against whose records, and what may come back. It does not detect prompt injection - it bounds what a manipulated agent can actually do. In-process, fail-closed, with zero runtime dependencies in the core.',
         },
         { name: 'theme-color', content: '#0b0d10', media: '(prefers-color-scheme: dark)' },
         { name: 'theme-color', content: '#fbfaf8', media: '(prefers-color-scheme: light)' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Histos - policy enforcement for AI agents' },
+        { property: 'og:title', content: 'Histos - the security boundary for agent tool calls' },
         {
           property: 'og:description',
-          content: 'The model proposes. Policy decides. Deterministic authorization at the tool boundary.',
+          content: 'The model proposes. Policy decides. Deterministic enforcement at the tool call, in both directions.',
         },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],

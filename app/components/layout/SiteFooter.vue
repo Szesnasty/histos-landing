@@ -69,7 +69,7 @@ const COPYRIGHT_YEAR = 2026
             <MastMark :size-in-pixels="24" />
             <span class="site-footer__brand-name">Histos</span>
           </div>
-          <p class="site-footer__tagline text-secondary">Policy enforcement for AI agents.</p>
+          <p class="site-footer__tagline text-secondary">The tool call is the security boundary - in both directions.</p>
           <p class="site-footer__etymology text-tertiary">
             ἱστός - the mast, from ἵστημι, <em>to stand</em>. The thing that stands.
           </p>
