@@ -31,13 +31,15 @@ function isHosted(model: string) {
     <div class="page-container">
       <SectionHeading
         eyebrow="Measured"
-        heading="749 runs, 7 models, 6 scenarios"
+        heading="749 paired comparisons, 7 models, 6 scenarios"
         subheading="The same three agents, driven twice each — as written, and behind a policy."
       />
 
       <p class="section-lede prose-column">
-        Counts, never percentages: five runs do not support a percentage, and rounding
-        <code>4/5</code> to <code>80%</code> would invent precision the sample cannot carry.
+        Each comparison drives the same agent twice — as written and behind the policy — so
+        {{ SWEEP_TOTALS.comparisons }} comparisons are {{ SWEEP_TOTALS.executions.toLocaleString('en-GB') }}
+        agent executions. Counts, never percentages: five runs do not support a percentage, and
+        rounding <code>4/5</code> to <code>80%</code> would invent precision the sample cannot carry.
         Raw records — one JSON object per run, each naming the commit that produced it and
         the hash of the policy that decided — are at <a :href="withBasePath('/sweep.jsonl')" download>sweep.jsonl</a>.
       </p>
@@ -58,10 +60,11 @@ function isHosted(model: string) {
           </span>
         </div>
         <div class="benchmark__stat benchmark__stat--accent">
-          <span class="benchmark__stat-value">{{ SWEEP_TOTALS.gatedDamage }}<span class="benchmark__stat-of">/{{ SWEEP_TOTALS.runs }}</span></span>
+          <span class="benchmark__stat-value">{{ SWEEP_TOTALS.gatedDamage }}<span class="benchmark__stat-of">/{{ SWEEP_TOTALS.attackCases }}</span></span>
           <span class="benchmark__stat-label">
-            reached the datastore behind a policy — and {{ SWEEP_TOTALS.mediationBreaches }} calls
-            reached a tool the policy had not seen
+            gated <strong>attack cases</strong> reached the datastore. The
+            {{ SWEEP_TOTALS.controlCases }} controls are counted apart — pooling them would report
+            benign runs as prevented attacks
           </span>
         </div>
       </div>

@@ -13,14 +13,14 @@
 import { SWEEP_TOTALS } from '~/content/benchmarkContent'
 
 useHead({
-  title: 'Histos - what 749 agent runs measured',
+  title: 'Histos - what 1,498 agent executions measured',
   meta: [
     {
       name: 'description',
       content:
-        'Seven models, six scenarios, four temperatures. Five of seven models refuse an invoice fraud and an injected runbook unaided, and hand a patient\'s details to a stranger in 83 of 85 runs. Counts, controls, and what the policy actually did — from its own audit trail.',
+        'Seven models, six scenarios, four temperatures. Five of seven refuse an invoice fraud and an injected runbook unaided, and hand a patient\'s details to a stranger in 83 of 85 runs. Counts, controls, and what the policy actually did — from its own audit trail.',
     },
-    { property: 'og:title', content: 'Histos - what 749 agent runs measured' },
+    { property: 'og:title', content: 'Histos - what 1,498 agent executions measured' },
     {
       property: 'og:description',
       content: 'The split is not capability. It is whether the attack looks like one.',
@@ -35,7 +35,7 @@ useHead({
       <div class="page-container">
         <NuxtLink to="/" class="sweep-page__back">&larr; Histos</NuxtLink>
         <p class="sweep-page__eyebrow">The measurement</p>
-        <h1>What {{ SWEEP_TOTALS.runs }} agent runs measured</h1>
+        <h1>What {{ SWEEP_TOTALS.executions.toLocaleString('en-GB') }} agent executions measured</h1>
         <p class="sweep-page__lede">
           Six scenarios — three attacks and three controls — across seven models and four
           sampling temperatures. Each run drives the same agent twice: once as the

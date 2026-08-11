@@ -35,7 +35,7 @@ const ARTWORK_ALT_TEXT =
         <p class="hero__eyebrow">ἱστός - the mast</p>
         <h1>The model proposes.<br >Policy decides.</h1>
 
-        <p class="hero__pitch">The tool call is the security boundary - in both directions.</p>
+        <p class="hero__pitch">Treat the tool interface as a security boundary - in both directions.</p>
         <p class="hero__lede">
           Control which tools an agent may call, with which arguments, against which resources, and what may
           leave the system.

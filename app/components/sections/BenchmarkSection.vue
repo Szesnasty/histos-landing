@@ -19,7 +19,7 @@ const { withBasePath } = useAssetPath()
       <SectionHeading
         eyebrow="Measured"
         heading="The boundary is worth least where the attack looks like one"
-        subheading="Seven models, six scenarios, four temperatures, 749 runs."
+        subheading="Seven models, six scenarios, four temperatures. 749 paired comparisons, 1,498 agent executions."
       />
 
       <div class="sweep-summary__grid">
@@ -50,9 +50,12 @@ const { withBasePath } = useAssetPath()
       </p>
 
       <p class="sweep-summary__caveat prose-column">
-        Behind a policy: {{ SWEEP_TOTALS.gatedDamage }} of {{ SWEEP_TOTALS.runs }}. That column is
-        not a discovery — a deterministic gate refuses the call it was written to refuse, and on
-        two of the three scenarios it did nothing at all because the model had already declined.
+        Behind a policy: {{ SWEEP_TOTALS.gatedDamage }} harmful outcomes across the
+        {{ SWEEP_TOTALS.attackCases }} gated attack cases — the {{ SWEEP_TOTALS.controlCases }}
+        controls are counted separately, because pooling them would report benign runs as
+        prevented attacks. That column is not a discovery either: a deterministic gate refuses the
+        call it was written to refuse, and on two of the three scenarios it did nothing at all
+        because the model had already declined.
         What the runs are for is the other question: <strong>where a boundary is worth its
         cost</strong>, and what that cost is. On accounts payable it is zero. On the clinic it is
         an entire legitimate feature.

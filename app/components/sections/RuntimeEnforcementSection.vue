@@ -36,7 +36,10 @@ import {
           </p>
           <dl class="enforcement__checks">
             <div v-for="check in PRE_TOOL_CHECKS" :key="check.name">
-              <dt>{{ check.name }}</dt>
+              <dt>
+                {{ check.name }}
+                <span v-if="check.kind === 'recognition'" class="enforcement__recognises">recognises</span>
+              </dt>
               <dd class="text-secondary">{{ check.question }}</dd>
             </div>
           </dl>
@@ -52,7 +55,10 @@ import {
           </p>
           <dl class="enforcement__checks">
             <div v-for="check in POST_TOOL_CHECKS" :key="check.name">
-              <dt>{{ check.name }}</dt>
+              <dt>
+                {{ check.name }}
+                <span v-if="check.kind === 'recognition'" class="enforcement__recognises">recognises</span>
+              </dt>
               <dd class="text-secondary">{{ check.question }}</dd>
             </div>
           </dl>
@@ -61,6 +67,17 @@ import {
           </p>
         </div>
       </div>
+
+      <p class="enforcement__kinds prose-column">
+        <strong>Two different strengths, and the difference matters more than the count.</strong>
+        Most of these decide from a declared fact — a role holds a grant or it does not, an argument
+        matches a schema or it does not, a caller owns the resource or does not. There is no
+        recognition step, so no class of input gets through by looking unfamiliar. The three marked
+        <span class="enforcement__recognises">recognises</span> have to identify something inside a
+        value: a secret, a planted token. They are worth having and they are not guarantees — what
+        they have not seen, they do not catch. Read those three as defence in depth, and the rest as
+        the boundary.
+      </p>
 
       <div class="enforcement__primitives">
         <h3 class="enforcement__primitives-title">
@@ -119,6 +136,23 @@ import {
 @use '~/assets/scss/mixins' as *;
 
 .enforcement {
+  &__recognises {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-strong);
+  }
+
+  &__kinds {
+    margin-top: $space-large;
+    font-size: $font-size-body-small;
+  }
+
   &__pipeline {
     margin-top: $space-huge;
   }

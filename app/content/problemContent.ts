@@ -6,7 +6,7 @@ export interface TitledParagraph {
 export const PROBLEM_CARDS: TitledParagraph[] = [
   {
     title: 'Untrusted content reaches the model',
-    body: 'Documents, retrieved passages, tool output and user input all end up in the same context window. There is no separate channel for the parts you wrote.',
+    body: 'Documents, retrieved passages, tool output and user input all arrive in the same context window. Roles do carry different levels of trust, and providers now train against an instruction hierarchy - but a model-side hierarchy is a learned disposition, not a deterministic authorization boundary. It moves how likely the model is to comply; it does not decide what the call is allowed to do.',
   },
   {
     title: 'The model may still call tools',

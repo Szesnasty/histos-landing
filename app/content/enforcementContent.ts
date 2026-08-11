@@ -10,6 +10,21 @@
 export interface NamedCheck {
   name: string
   question: string
+  /**
+   * Whether the check decides from a declared fact or has to recognise something.
+   *
+   * `structural` checks answer from the policy, the principal and the host's own
+   * records: a role either holds a grant or it does not, an argument either matches
+   * a schema or it does not, a caller either owns the resource or does not. There is
+   * no recognition step, so there is no class of input that slips past by looking
+   * unfamiliar.
+   *
+   * `recognition` checks have to identify something in a value — a secret, a planted
+   * token. They are useful and they are not guarantees: what they have never seen,
+   * they do not catch. Presenting them in one list with the structural checks is the
+   * quickest way for a reader to over-trust the weaker half.
+   */
+  kind: 'structural' | 'recognition'
 }
 
 export interface PolicyPrimitiveGroup {
@@ -18,30 +33,32 @@ export interface PolicyPrimitiveGroup {
 }
 
 export const PRE_TOOL_CHECKS: NamedCheck[] = [
-  { name: 'Tool access', question: 'may this role call this tool at all?' },
-  { name: 'Argument schema', question: 'are names, types, ranges, enums and patterns valid?' },
-  { name: 'Trusted binding', question: 'replace model-controlled values with trusted principal attributes.' },
+  { kind: 'structural', name: 'Tool access', question: 'may this role call this tool at all?' },
+  { kind: 'structural', name: 'Argument schema', question: 'are names, types, ranges, enums and patterns valid?' },
+  { kind: 'structural', name: 'Trusted binding', question: 'replace model-controlled values with trusted principal attributes.' },
   {
+    kind: 'structural',
     name: 'Resource authorization',
     question: 'does the caller actually own or have access to the target resource?',
   },
-  { name: 'State conditions', question: 'is the resource currently in a state where this action is allowed?' },
-  { name: 'Rate limits', question: 'how often may this action happen?' },
-  { name: 'Budgets', question: 'how much cumulative action is permitted?' },
+  { kind: 'structural', name: 'State conditions', question: 'is the resource currently in a state where this action is allowed?' },
+  { kind: 'structural', name: 'Rate limits', question: 'how often may this action happen?' },
+  { kind: 'structural', name: 'Budgets', question: 'how much cumulative action is permitted?' },
   {
+    kind: 'recognition',
     name: 'Canary / secret screening',
     question: 'is the call carrying a planted token or a verified secret out?',
   },
-  { name: 'Confirmation', question: 'must a human approve this exact action first?' },
+  { kind: 'structural', name: 'Confirmation', question: 'must a human approve this exact action first?' },
 ]
 
 export const POST_TOOL_CHECKS: NamedCheck[] = [
-  { name: 'Return schema', question: 'does the result match the declared contract?' },
-  { name: 'Projection', question: 'only declared fields leave the boundary.' },
-  { name: 'Sensitive-field redaction', question: 'remove fields marked as sensitive.' },
-  { name: 'Secret redaction', question: 'stop supported secrets from flowing back into context.' },
-  { name: 'Canary redaction', question: 'strip planted tokens out when they surface.' },
-  { name: 'Exception redaction', question: 'errors do not become accidental exfiltration channels.' },
+  { kind: 'structural', name: 'Return schema', question: 'does the result match the declared contract?' },
+  { kind: 'structural', name: 'Projection', question: 'only declared fields leave the boundary.' },
+  { kind: 'structural', name: 'Sensitive-field redaction', question: 'remove fields marked as sensitive.' },
+  { kind: 'recognition', name: 'Secret redaction', question: 'stop supported secrets from flowing back into context.' },
+  { kind: 'recognition', name: 'Canary redaction', question: 'strip planted tokens out when they surface.' },
+  { kind: 'structural', name: 'Exception redaction', question: 'errors do not become accidental exfiltration channels.' },
 ]
 
 export const POLICY_PRIMITIVE_GROUPS: PolicyPrimitiveGroup[] = [
