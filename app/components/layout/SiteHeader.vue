@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS } from '~/content/siteLinks'
+import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS, landingSection } from '~/content/siteLinks'
 
 const HEADER_SCROLL_THRESHOLD_PX = 24
 
@@ -23,13 +23,15 @@ const NAVIGATION_LINKS = [
 <template>
   <header class="site-header" :class="{ 'site-header--over-artwork': !hasScrolledPastThreshold }">
     <div class="page-container site-header__inner">
-      <a :href="SECTION_ANCHORS.top" class="site-header__brand" aria-label="Histos, home">
+      <NuxtLink to="/" class="site-header__brand" aria-label="Histos, home">
         <MastMark />
         <span class="site-header__brand-name">Histos</span>
-      </a>
+      </NuxtLink>
 
       <nav class="site-header__nav" aria-label="Sections">
-        <a v-for="link in NAVIGATION_LINKS" :key="link.href" :href="link.href">{{ link.label }}</a>
+        <NuxtLink v-for="link in NAVIGATION_LINKS" :key="link.href" :to="landingSection(link.href)">
+          {{ link.label }}
+        </NuxtLink>
       </nav>
 
       <div class="site-header__actions">

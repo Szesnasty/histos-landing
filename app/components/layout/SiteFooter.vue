@@ -5,13 +5,14 @@ import {
   SPEC_CONFORMANCE_MANIFEST_URL,
   SPEC_DECISION_CODES_URL,
   SPEC_SCHEMA_URL,
+  landingSection,
 } from '~/content/siteLinks'
 
 const { withBasePath } = useAssetPath()
 
 interface FooterColumn {
   title: string
-  links: { label: string; href: string; external?: boolean }[]
+  links: { label: string; href?: string; to?: string | { path: string; hash: string }; external?: boolean }[]
 }
 
 const FOOTER_COLUMNS: FooterColumn[] = [
@@ -39,7 +40,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: 'The format',
     links: [
-      { label: 'Policy Format Draft 0.1', href: SECTION_ANCHORS.format },
+      { label: 'Policy Format Draft 0.1', to: landingSection(SECTION_ANCHORS.format) },
       { label: 'JSON Schema', href: withBasePath(SPEC_SCHEMA_URL) },
       { label: 'Decision codes', href: withBasePath(SPEC_DECISION_CODES_URL) },
       { label: 'Conformance manifest', href: withBasePath(SPEC_CONFORMANCE_MANIFEST_URL) },
@@ -48,12 +49,12 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: 'Reading',
     links: [
-      { label: 'The measurement', href: withBasePath('/sweep') },
-      { label: 'The problem', href: SECTION_ANCHORS.problem },
-      { label: 'Why a policy', href: SECTION_ANCHORS.whyPolicy },
-      { label: 'Scope and limits', href: SECTION_ANCHORS.scope },
-      { label: 'Open core boundary', href: SECTION_ANCHORS.openCore },
-      { label: 'Status', href: SECTION_ANCHORS.status },
+      { label: 'The measurement', to: '/sweep' },
+      { label: 'The problem', to: landingSection(SECTION_ANCHORS.problem) },
+      { label: 'Why a policy', to: landingSection(SECTION_ANCHORS.whyPolicy) },
+      { label: 'Scope and limits', to: landingSection(SECTION_ANCHORS.scope) },
+      { label: 'Open core boundary', to: landingSection(SECTION_ANCHORS.openCore) },
+      { label: 'Status', to: landingSection(SECTION_ANCHORS.status) },
     ],
   },
 ]
@@ -80,7 +81,8 @@ const COPYRIGHT_YEAR = 2026
           <h4>{{ column.title }}</h4>
           <ul>
             <li v-for="link in column.links" :key="link.label">
-              <a :href="link.href" :rel="link.external ? 'noopener' : undefined">{{ link.label }}</a>
+              <NuxtLink v-if="link.to" :to="link.to">{{ link.label }}</NuxtLink>
+              <a v-else :href="link.href" :rel="link.external ? 'noopener' : undefined">{{ link.label }}</a>
             </li>
           </ul>
         </nav>

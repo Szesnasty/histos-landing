@@ -11,6 +11,19 @@ export const SPEC_SCHEMA_URL = '/spec/policy-0.1.schema.json'
 export const SPEC_DECISION_CODES_URL = '/spec/decision-codes.json'
 export const SPEC_CONFORMANCE_MANIFEST_URL = '/spec/conformance-manifest.json'
 
+/**
+ * A link to a section of the landing page, usable from any route.
+ *
+ * A bare `#problem` means "on whichever page you are already on", which was true
+ * while there was one page. From `/sweep` it resolves to `/sweep#problem` and does
+ * nothing at all — the header nav silently stopped working the moment a second route
+ * existed. Routing it through NuxtLink also applies the deployment base URL, which a
+ * hand-written path does not get.
+ */
+export function landingSection(anchor: string) {
+  return { path: '/', hash: anchor }
+}
+
 export const SECTION_ANCHORS = {
   top: '#top',
   problem: '#problem',
