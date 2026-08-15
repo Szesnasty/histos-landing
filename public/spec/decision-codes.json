@@ -214,19 +214,50 @@
       "effect": "deny | redact",
       "phase": "post",
       "meaning": "The tool's output did not match its declared return schema. Under strict returns this is handled per on_violation, because name-based redaction cannot protect a secret in an undeclared field."
+    },
+    {
+      "code": "confirm_suspended",
+      "effect": "require_confirmation",
+      "phase": "pre",
+      "meaning": "The host's confirm callback signalled that the run is parked awaiting an out-of-band approval, by raising one of the types passed as confirm_suspends. Not a denial and not an allow: no decision has been made yet and the tool has not run. Recorded so the trail shows that a human was asked; an engine that lets a suspension leave without a record cannot show that."
+    },
+    {
+      "code": "confirm_cancelled",
+      "effect": "require_confirmation",
+      "phase": "pre",
+      "meaning": "The host cancelled execution while the gate was awaiting out-of-band confirmation. The cancellation is recorded and propagated unchanged; the tool has not run."
+    },
+    {
+      "code": "pre_cancelled",
+      "effect": "deny",
+      "phase": "pre",
+      "meaning": "Execution was cancelled while the deterministic pre-gate awaited a host callback such as the resource resolver or semantic tier. The cancellation is recorded and propagated unchanged; no pre-gate decision completed and the tool has not run."
+    },
+    {
+      "code": "unnameable_args",
+      "effect": "deny",
+      "phase": "pre",
+      "meaning": "The call passed positional arguments to a tool whose parameters cannot be named — it takes *args, or exposes no introspectable signature — so the argument schema, the trusted bindings and the audit trail have nothing to attach to. A tool with an ordinary signature is bound by name and never reaches this. An engine that instead validates positional arguments by position is not compatible: a policy names its fields."
+    },
+    {
+      "code": "uninspectable_output",
+      "effect": "deny",
+      "phase": "post",
+      "meaning": "The tool returned, or raised an error carrying, a value whose payload is behind an iteration the post chain never performs — a generator, a coroutine, an iterator, a view, or any other non-string iterable that is not a container the post chain walks — at the top level or nested inside one that is. Distinct from output_schema, which means the output WAS read and did not match: here nothing read it, so every output control would report allow on content it never saw. The tool has already run by then, so the denial stops the unscanned payload reaching the model; it does not undo the call. An engine that instead allows such a value is not compatible."
     }
   ],
   "policy_codes": {
-    "unparseable": "The document is not valid JSON/YAML, or is empty.",
-    "not_an_object": "The top level is not an object/mapping.",
-    "not_found": "The policy file does not exist.",
     "duplicate_key": "A repeated mapping key. Never last-one-wins — the engine refuses to guess.",
-    "unknown_key": "A key this engine does not understand, at any level. Loading partially would enforce partially.",
-    "unsupported_version": "The document's schema_version is not implemented by this engine.",
-    "unsupported_feature": "requires.features names a capability this engine does not implement.",
-    "tools_not_a_mapping": "`tools` is a list (the pre-0.1 shape) rather than a mapping keyed by tool name.",
     "invalid_binding": "A `bind` value is not exactly `principal.<attr>` — bindings are substitutions, not expressions.",
     "invalid_grant": "A role's `allow` entry is not a plain tool name.",
+    "not_an_object": "The top level is not an object/mapping.",
+    "not_found": "The policy file does not exist.",
+    "tools_not_a_mapping": "`tools` is a list (the pre-0.1 shape) rather than a mapping keyed by tool name.",
+    "unknown_key": "A key this engine does not understand, at any level. Loading partially would enforce partially.",
+    "unparseable": "The document is not valid JSON/YAML, or is empty.",
+    "unsafe_pattern": "A `pattern` whose shape admits runaway backtracking. `re` is a backtracking engine with no step budget that holds the GIL, so a catastrophic pattern cannot be interrupted once it starts and the only fail-closed answer is to refuse it before it can run. Part of the format, not an implementation detail: an engine that accepts a pattern this corpus says to refuse is not compatible.",
+    "unsupported_feature": "requires.features names a capability this engine does not implement.",
+    "unsupported_version": "The document's schema_version is not implemented by this engine.",
     "policy_invalid": "Any other structural problem (unclassified; new cases should get their own code)."
   },
   "review_codes": {

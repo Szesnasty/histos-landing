@@ -7,7 +7,8 @@
  * makes that a one-file job.
  */
 
-export const INSTALL_COMMAND = 'pip install histos[yaml]'
+export const INSTALL_COMMAND = `git clone https://github.com/Szesnasty/histos
+pip install "./histos[yaml]"`
 
 export const REFUND_POLICY_YAML = `schema_version: histos.policy/0.1
 policy_id: refund-approval

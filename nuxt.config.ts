@@ -40,7 +40,7 @@ export default defineNuxtConfig({
 
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Histos - a deterministic enforcement boundary around agent tool calls',
+      title: 'Histos - the small Python policy gate for agent tool calls',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -55,12 +55,12 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Histos makes the tool interface an enforcement boundary in both directions: which tools an agent may call, with which arguments, against whose records, and what may come back. It does not detect prompt injection - it bounds what a manipulated agent can actually do. In-process, fail-closed, with zero runtime dependencies in the core.',
+            'Histos is a small in-process Python policy gate around agent tool calls: authorize proposed actions before execution and constrain tool output before it returns to the model. No proxy, identity platform or control plane.',
         },
         { name: 'theme-color', content: '#0b0d10', media: '(prefers-color-scheme: dark)' },
         { name: 'theme-color', content: '#fbfaf8', media: '(prefers-color-scheme: light)' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Histos - a deterministic enforcement boundary around agent tool calls' },
+        { property: 'og:title', content: 'Histos - the small Python policy gate for agent tool calls' },
         {
           property: 'og:description',
           content: 'The model proposes. Policy decides. Deterministic enforcement at the tool call, in both directions - one boundary among several, and the only one the model cannot argue with.',

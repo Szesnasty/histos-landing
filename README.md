@@ -66,17 +66,16 @@ skipped entirely under `prefers-reduced-motion`.
 ```
 app/
   app.vue                    shell, skip link, pre-paint theme script
-  assets/css/main.css        design tokens, light + dark, reset
-  pages/index.vue            the whole page - every section, every snippet
-  components/
-    SiteHeader.vue           sticky nav, theme toggle
-    SiteFooter.vue
-    MastMark.vue             ἱστός - the mark
-    CodeBlock.vue            dependency-free highlighter (escapes first, then marks up)
-    DiagramTrustBoundary.vue SVG: untrusted content → model → gate → allow/deny
-    DiagramConstant.vue      everything is variable except the policy
-    DiagramChain.vue         the PRE and POST chains
+  assets/scss/               design tokens, light + dark, reset, component mixins
+  pages/index.vue            landing-page section order
+  pages/sweep.vue            the full measurement and methods
+  components/sections/       one component per landing section
+  components/diagrams/       trust boundary, constant policy, PRE/POST pipeline
+  components/layout/         fixed navigation and footer
+  components/ui/             buttons, cards, code and the ἱστός mark
+  content/                   claims, samples, measured counts and outbound URLs
 public/spec/                 the format artifacts, served at the $id
+public/sweep.jsonl            raw per-run evidence behind the measurement
 scripts/sync-spec.mjs        copy + verify the $id
 ```
 
@@ -84,26 +83,26 @@ scripts/sync-spec.mjs        copy + verify the $id
 
 Every code sample, CLI transcript and number on the page is real output from the
 library, not illustrative. If the library changes, the page is wrong until somebody
-re-runs the command and pastes the new output. The snippets live at the top of
-`app/pages/index.vue` as named constants so they are easy to find and diff.
+re-runs the command and pastes the new output. Claims and snippets live under
+`app/content/` as named constants so they are easy to find and diff.
 
-## Release blockers
+## Public-launch blockers
 
-Do not deploy publicly until all four are true. Each one is a claim the page makes
-that a reader can check in under a minute.
+GitHub Pages is the public, `noindex` release-candidate preview. Do not remove
+`noindex`, attach the production domain or announce the site as launched until all
+four are true. Each one is a claim a reader can check in under a minute.
 
 - [ ] **`histos.dev` is bought and this site is deployed to it.** The page shows
       `$schema=https://histos.dev/spec/policy-0.1.schema.json` and invites the reader
       to open it. Deploying *this* site is what makes that URL answer - on any other
       host the claim is false, and an `$id` that 404s is worse than a placeholder.
-- [ ] **The GitHub repository is public.** The install command, every footer link and
+- [x] **The GitHub repository is public.** The source-install command, every footer link and
       the closing call to action all point at it. *Repo first, then site* - a closed
       product with a promised-later OSS component is the weakest possible version.
 - [ ] **`histos` is published to PyPI.** This is a hard precondition, not a nice-to-have.
-      The hero states `pip install histos[yaml]` **with no caveat**, deliberately - the
-      earlier "not on PyPI yet" wording was removed on the assumption that the site goes
-      live *after* the release. Deploy this page before the package exists and the first
-      command a visitor runs fails.
+      Until then the hero says release candidate and installs from the public source.
+      Replace it with `pip install "histos[yaml]"` only after that command resolves on
+      PyPI; otherwise the first command a visitor runs fails.
 - [ ] **The Status section still tells the truth.** It currently claims the runtime,
       the format at Draft 0.1, and the CLI exist today, and that everything else
       *"evolves after real adoption"*. If that stops being accurate, this section is the

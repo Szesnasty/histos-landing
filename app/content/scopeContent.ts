@@ -31,4 +31,8 @@ export const SCOPE_LIMITATIONS: TitledParagraph[] = [
     title: 'It does not solve human intent',
     body: 'It enforces what the policy allows, not what someone later wishes it had said.',
   },
+  {
+    title: 'It does not run an agent fleet',
+    body: 'There is no agent registry, identity provider, sandbox or hosted control plane. Histos is the local Python enforcement layer; organization-wide operations are a separate product problem.',
+  },
 ]

@@ -22,6 +22,11 @@ const MAST_ARTWORK_ALT_TEXT =
             request against static policy and a trusted identity, then allows it or denies it before the tool
             executes.
           </p>
+          <p class="answer-section__paragraph text-secondary">
+            It is deliberately not a broad agent-governance platform. Those platforms combine identity,
+            discovery, sandboxing and fleet operations. Histos is the smaller enforcement primitive inside one
+            Python host: authorize the proposed action, execute only within policy, then constrain what returns.
+          </p>
         </div>
 
         <figure class="answer-section__artwork">

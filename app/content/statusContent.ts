@@ -7,7 +7,7 @@ export interface ReleaseStatusEntry {
 export const RELEASE_STATUS_ENTRIES: ReleaseStatusEntry[] = [
   {
     title: 'Histos Python',
-    body: 'Available now as the reference runtime, under Apache-2.0.',
+    body: 'Source available now under Apache-2.0. Version 0.1.0 is the PyPI release candidate, not a published package yet.',
     availableNow: true,
   },
   {
@@ -17,7 +17,7 @@ export const RELEASE_STATUS_ENTRIES: ReleaseStatusEntry[] = [
   },
   {
     title: 'CLI and developer workflow',
-    body: 'Policy loading, validation, review and coverage as a CI gate.',
+    body: 'Policy loading, validation, review, coverage, tool import and definition drift as CI gates.',
     availableNow: true,
   },
   {

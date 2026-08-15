@@ -2,7 +2,7 @@
  * The runtime-enforcement section.
  *
  * IMPORTANT: every capability listed in `POLICY_PRIMITIVE_GROUPS` is checked
- * against the shipped engine - seventeen come from `histos.ENGINE_FEATURES`, the
+ * against the shipped engine - eighteen come from `histos.ENGINE_FEATURES`, the
  * rest from the public API and CLI. Nothing here is roadmap. A capability that
  * only exists on a plan does not get to look like one that exists in a release.
  */
@@ -102,7 +102,8 @@ export const POLICY_PRIMITIVE_GROUPS: PolicyPrimitiveGroup[] = [
       'audit verifier',
       'policy review',
       'coverage as a CI gate',
-      'MCP / OpenAPI import',
+      'MCP / OpenAI / OpenAPI import',
+      'tool definition drift',
       'canonical policy hash',
       'async tools',
     ],

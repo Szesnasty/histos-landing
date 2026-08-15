@@ -104,9 +104,11 @@ import {
             a trusted identity, your static policy, the request itself - comes from outside that channel.
           </p>
           <p class="enforcement__paragraph text-secondary">
-            Every step is <strong>fail-closed</strong>: an error inside any check is a denial. There is no
-            fail-open mode. And a denial answers two audiences at once - the developer gets the field, the bound
-            and the fix; the agent gets a code that teaches it nothing about how to succeed on the next attempt.
+            In <code>enforce</code> mode every step is <strong>fail-closed</strong>: an error inside a check is a
+            denial. <code>observe</code> is the explicit calibration mode - it records the decision, then runs the
+            original call unchanged and protects nothing. A denial answers two audiences at once: the developer
+            gets the field, the bound and the fix; the agent gets a code that teaches it nothing about how to
+            succeed on the next attempt.
           </p>
         </div>
         <TrustBoundaryDiagram />

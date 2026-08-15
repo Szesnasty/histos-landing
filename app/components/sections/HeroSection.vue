@@ -5,7 +5,7 @@ import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS } from '~/content/siteLinks'
 const { parallaxLayerElement } = useHeroParallax()
 const { withBasePath } = useAssetPath()
 
-const RUNTIME_BADGES = ['In-process', 'Fail-closed', 'Uses your identity layer'] as const
+const RUNTIME_BADGES = ['In-process', 'No proxy', 'Enforce: fail-closed', 'Uses your identity layer'] as const
 const PACKAGE_BADGES = ['Apache-2.0', 'Python ≥ 3.12', 'Core: 0 runtime deps', 'Policy Format Draft 0.1'] as const
 
 const ARTWORK_ALT_TEXT =
@@ -35,7 +35,7 @@ const ARTWORK_ALT_TEXT =
         <p class="hero__eyebrow">ἱστός - the mast</p>
         <h1>The model proposes.<br >Policy decides.</h1>
 
-        <p class="hero__pitch">Treat the tool interface as a security boundary - in both directions.</p>
+        <p class="hero__pitch">A small Python policy gate around agent tool calls - in both directions.</p>
         <p class="hero__lede">
           Control which tools an agent may call, with which arguments, against which resources, and what may
           leave the system.
@@ -55,7 +55,10 @@ const ARTWORK_ALT_TEXT =
 
         <div class="hero__install">
           <CodeBlock :code="INSTALL_COMMAND" language="bash" />
-          <p class="hero__install-note">Core has zero runtime dependencies. YAML support is optional.</p>
+          <p class="hero__install-note">
+            0.1.0 release candidate. Install from source; the PyPI package is not published yet.
+            Core has zero runtime dependencies and YAML support is optional.
+          </p>
         </div>
 
         <ul class="hero__badges">
