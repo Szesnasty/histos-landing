@@ -27,10 +27,13 @@ tools:
     confirmation:
       required: true`
 
+// `.tools` is a mapping of name to wrapped tool, so handing it to a framework
+// that expects a sequence hands it the *names*. Iterating the result yields the
+// wrapped callables, which is what an agent's tool list wants.
 export const PROTECT_TOOLS_PYTHON = `from histos import protect
 
 guarded = protect(my_tools, policy="security.policy.yaml")
-agent.tools = guarded.tools     # the same tools, now bounded`
+agent.tools = list(guarded)     # the same tools, now bounded`
 
 export const IDENTITY_ROLE_MAPPING = `  Entra app role                      Histos role
   finance-refund-operator      →      refund_officer
