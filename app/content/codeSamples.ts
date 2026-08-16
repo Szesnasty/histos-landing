@@ -7,9 +7,10 @@
  * makes that a one-file job.
  */
 
-// The release is on PyPI, so this is the install: one command, no clone. The
-// quotes matter - most shells treat bare `histos[yaml]` as a glob pattern.
-export const INSTALL_COMMAND = 'pip install "histos[yaml]"'
+// The package, not an extra. `[yaml]` pulls one optional dependency for YAML
+// policy bundles, and putting it in the headline command made the install look
+// like it needed something - the note underneath carries it instead.
+export const INSTALL_COMMAND = 'pip install histos'
 
 export const REFUND_POLICY_YAML = `schema_version: histos.policy/0.1
 policy_id: refund-approval

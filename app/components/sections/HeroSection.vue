@@ -69,7 +69,8 @@ const ARTWORK_ALT_TEXT =
           <p class="hero__install-note">
             Installs
             <a :href="PYPI_PROJECT_URL" target="_blank" rel="noopener">histos {{ HISTOS_VERSION }}</a>
-            from PyPI. Core has zero runtime dependencies and YAML support is optional.
+            from PyPI, with zero runtime dependencies. Policies in JSON need nothing more;
+            the YAML form shown below adds one: <code>pip install "histos[yaml]"</code>.
           </p>
         </div>
 
