@@ -1,4 +1,4 @@
-# histos.dev - the site
+# usehistos.dev - the site
 
 Nuxt 4, statically generated, no runtime services and no third-party requests. It is
 a set of files: `npm run generate` produces `.output/public`, which any static host
@@ -18,7 +18,7 @@ npx serve .output/public
 The policy format declares its own identity:
 
 ```json
-"$id": "https://histos.dev/spec/policy-0.1.schema.json"
+"$id": "https://usehistos.dev/spec/policy-0.1.schema.json"
 ```
 
 That string is now inside every policy anyone writes, in every `$ref`, and in the
@@ -32,6 +32,7 @@ So the site serves, at exactly the paths the artifacts claim:
 | URL | file |
 |---|---|
 | `/spec/policy-0.1.schema.json` | the format, as JSON Schema |
+| `/spec/tool-lock-0.1.schema.json` | the tool lock format, as JSON Schema |
 | `/spec/decision-codes.json` | the RUNTIME / POLICY / REVIEW vocabulary |
 | `/spec/conformance-manifest.json` | the corpus case list and what *passing* may mean |
 
@@ -86,23 +87,31 @@ library, not illustrative. If the library changes, the page is wrong until someb
 re-runs the command and pastes the new output. Claims and snippets live under
 `app/content/` as named constants so they are easy to find and diff.
 
-## Public-launch blockers
+## Public-launch claims
 
-GitHub Pages is the public, `noindex` release-candidate preview. Do not remove
-`noindex`, attach the production domain or announce the site as launched until all
-four are true. Each one is a claim a reader can check in under a minute.
+The site is launched: it serves `usehistos.dev` from its own root and is
+indexable. That turns the list below from blockers into standing claims - each
+one is something the page now asserts to a stranger, and each is checkable in
+under a minute. A claim that stops being true is a bug in the page.
 
-- [ ] **`histos.dev` is bought and this site is deployed to it.** The page shows
-      `$schema=https://histos.dev/spec/policy-0.1.schema.json` and invites the reader
+- [x] **`usehistos.dev` is attached and this site is deployed to it.** The page shows
+      `$schema=https://usehistos.dev/spec/policy-0.1.schema.json` and invites the reader
       to open it. Deploying *this* site is what makes that URL answer - on any other
       host the claim is false, and an `$id` that 404s is worse than a placeholder.
-- [x] **The GitHub repository is public.** The source-install command, every footer link and
-      the closing call to action all point at it. *Repo first, then site* - a closed
-      product with a promised-later OSS component is the weakest possible version.
-- [ ] **`histos` is published to PyPI.** This is a hard precondition, not a nice-to-have.
-      Until then the hero says release candidate and installs from the public source.
-      Replace it with `pip install "histos[yaml]"` only after that command resolves on
-      PyPI; otherwise the first command a visitor runs fails.
+      The tool lock schema is served for the same reason.
+- [x] **The GitHub repository is public.** Every footer link and the closing call to
+      action point at it. *Repo first, then site* - a closed product with a
+      promised-later OSS component is the weakest possible version.
+- [x] **`histos` is published to PyPI.** The hero states the release and runs
+      `pip install "histos[yaml]"` with no caveat, the status section says
+      *released*, and the structured data carries `softwareVersion`. **If that
+      command does not resolve on PyPI, the first thing a visitor does fails** -
+      this is the one claim on the page that breaks the whole visit, so re-check
+      it before announcing anywhere.
+- [x] **The version is stated in one place.** `HISTOS_VERSION` in
+      `app/content/statusContent.ts` feeds the hero badge, the install note, the
+      status entry, the footer and the JSON-LD. Bump it there when a release goes
+      out, and it cannot disagree with itself.
 - [ ] **The Status section still tells the truth.** It currently claims the runtime,
       the format at Draft 0.1, and the CLI exist today, and that everything else
       *"evolves after real adoption"*. If that stops being accurate, this section is the

@@ -7,6 +7,11 @@
  */
 export const GITHUB_REPOSITORY_URL = 'https://github.com/Szesnasty/histos'
 
+/** The published distribution. `pip install histos[yaml]` resolves to this. */
+export const PYPI_PROJECT_URL = 'https://pypi.org/project/histos/'
+
+export const CHANGELOG_URL = `${GITHUB_REPOSITORY_URL}/blob/main/CHANGELOG.md`
+
 export const SPEC_SCHEMA_URL = '/spec/policy-0.1.schema.json'
 export const SPEC_DECISION_CODES_URL = '/spec/decision-codes.json'
 export const SPEC_CONFORMANCE_MANIFEST_URL = '/spec/conformance-manifest.json'

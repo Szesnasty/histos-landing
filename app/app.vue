@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { SITE_ORIGIN, absoluteSiteUrl } from '~/content/siteMeta'
+
 /**
  * Applied before first paint so the page never flashes the wrong theme. This
  * cannot live in `useThemePreference` - a composable runs after hydration, by
@@ -6,8 +8,28 @@
  */
 const APPLY_STORED_THEME_BEFORE_PAINT = `(function(){try{var t=localStorage.getItem('histos-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})()`
 
+/**
+ * One canonical URL per route, and an `og:url` that agrees with it.
+ *
+ * It is built here rather than page by page so a new route cannot be added
+ * without one - a page with no canonical, or with the landing page's canonical
+ * copied onto it, is how two URLs end up competing for the same content.
+ *
+ * The trailing slash is deliberate: a prerendered `/sweep` is written as
+ * `/sweep/index.html` and therefore served at `/sweep/`, which is the URL the
+ * canonical must name. Query and hash are dropped - neither identifies a
+ * different document here.
+ */
+const route = useRoute()
+const canonicalUrl = computed(() => {
+  const path = route.path.endsWith('/') ? route.path : `${route.path}/`
+  return path === '/' ? `${SITE_ORIGIN}/` : absoluteSiteUrl(path)
+})
+
 useHead({
   script: [{ innerHTML: APPLY_STORED_THEME_BEFORE_PAINT, tagPosition: 'head' }],
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+  meta: [{ property: 'og:url', content: canonicalUrl }],
 })
 </script>
 

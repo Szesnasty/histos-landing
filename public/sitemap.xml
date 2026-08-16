@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Both prerendered routes, and nothing else. `nuxt.config.ts` lists exactly these
+  two under `nitro.prerender.routes`; a URL here that is not there is a URL the
+  crawler is invited to fetch and told nothing lives at.
+
+  No `lastmod`: a hand-maintained date in a static file is wrong the first time
+  the page changes and nobody remembers this file, and a stale date is a worse
+  signal than none. The other files under `/spec/` are artifacts fetched by
+  tooling through the format's `$id`, not pages, so they are not listed.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://usehistos.dev/</loc>
+  </url>
+  <url>
+    <loc>https://usehistos.dev/sweep/</loc>
+  </url>
+</urlset>

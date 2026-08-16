@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {
+  CHANGELOG_URL,
   GITHUB_REPOSITORY_URL,
+  PYPI_PROJECT_URL,
   SECTION_ANCHORS,
   SPEC_CONFORMANCE_MANIFEST_URL,
   SPEC_DECISION_CODES_URL,
   SPEC_SCHEMA_URL,
   landingSection,
 } from '~/content/siteLinks'
+import { HISTOS_VERSION } from '~/content/statusContent'
 
 const { withBasePath } = useAssetPath()
 
@@ -19,7 +22,9 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: 'The library',
     links: [
+      { label: `histos ${HISTOS_VERSION} on PyPI`, href: PYPI_PROJECT_URL, external: true },
       { label: 'Source', href: GITHUB_REPOSITORY_URL, external: true },
+      { label: 'Changelog', href: CHANGELOG_URL, external: true },
       {
         label: 'SECURITY.md - where the guarantee stops',
         href: `${GITHUB_REPOSITORY_URL}/blob/main/SECURITY.md`,

@@ -1,4 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SOCIAL_IMAGE_PATH,
+  absoluteSiteUrl,
+} from './app/content/siteMeta'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-08-09',
   devtools: { enabled: false },
@@ -33,39 +41,41 @@ export default defineNuxtConfig({
   },
 
   app: {
-    // `/` on a custom domain; `/<repository>/` on GitHub Pages, where the CI
-    // workflow sets NUXT_APP_BASE_URL. Hand-written absolute paths in templates
-    // go through `useAssetPath()` so both deployments resolve.
-    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    // The site is served from the root of its own domain, usehistos.dev. It is
+    // deliberately not read from an environment variable: a build that silently
+    // came out prefixed with `/<repository>/` would break every absolute path
+    // once the custom domain is in front of it.
+    baseURL: '/',
 
     head: {
       htmlAttrs: { lang: 'en' },
-      title: 'Histos - the small Python policy gate for agent tool calls',
+      title: SITE_TITLE,
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
 
-        // The site must not be indexed. `robots.txt` deliberately *allows*
-        // crawling: a `Disallow` would stop the crawler ever fetching the page,
-        // and therefore ever reading this tag - which is how URLs end up
-        // indexed with no content rather than not indexed at all.
-        { name: 'robots', content: 'noindex, nofollow' },
-        { name: 'googlebot', content: 'noindex, nofollow' },
+        { name: 'robots', content: 'index, follow' },
 
-        {
-          name: 'description',
-          content:
-            'Histos is a small in-process Python policy gate around agent tool calls: authorize proposed actions before execution and constrain tool output before it returns to the model. No proxy, identity platform or control plane.',
-        },
+        { name: 'description', content: SITE_DESCRIPTION },
         { name: 'theme-color', content: '#0b0d10', media: '(prefers-color-scheme: dark)' },
         { name: 'theme-color', content: '#fbfaf8', media: '(prefers-color-scheme: light)' },
+
+        // `og:url` is set per route in `app.vue`, alongside the canonical it has
+        // to agree with. Everything here is a default a page may override.
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Histos - the small Python policy gate for agent tool calls' },
+        { property: 'og:site_name', content: SITE_NAME },
+        { property: 'og:title', content: SITE_TITLE },
+        { property: 'og:description', content: SITE_DESCRIPTION },
+        { property: 'og:image', content: absoluteSiteUrl(SOCIAL_IMAGE_PATH) },
         {
-          property: 'og:description',
-          content: 'The model proposes. Policy decides. Deterministic enforcement at the tool call, in both directions - one boundary among several, and the only one the model cannot argue with.',
+          property: 'og:image:alt',
+          content: 'Odysseus lashed to the mast as the Sirens sing - the Histos hero artwork',
         },
+
         { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: SITE_TITLE },
+        { name: 'twitter:description', content: SITE_DESCRIPTION },
+        { name: 'twitter:image', content: absoluteSiteUrl(SOCIAL_IMAGE_PATH) },
       ],
       link: [
         {

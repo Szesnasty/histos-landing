@@ -25,6 +25,13 @@ useHead({
       property: 'og:description',
       content: 'The split is not capability. It is whether the attack looks like one.',
     },
+    // Without these the card would carry this page's `og:` pair on some
+    // renderers and the site-wide `twitter:` pair on others.
+    { name: 'twitter:title', content: 'Histos - what 1,498 agent executions measured' },
+    {
+      name: 'twitter:description',
+      content: 'The split is not capability. It is whether the attack looks like one.',
+    },
   ],
 })
 </script>

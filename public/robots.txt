@@ -1,13 +1,4 @@
-# This site must not be indexed. The instruction that does that is the
-# `<meta name="robots" content="noindex, nofollow">` tag on every page.
-#
-# Crawling is deliberately ALLOWED here. A `Disallow: /` would stop a crawler
-# fetching the page at all, and therefore ever reading the noindex tag — which
-# is how a URL ends up listed with no description rather than not listed. To be
-# de-indexed, a page has to be crawled and found to say noindex.
-#
-# `/spec/` is served for tooling: it is what the policy format's `$id` resolves
-# to. Those files are meant to be fetchable by editors and validators.
-
 User-agent: *
 Allow: /
+
+Sitemap: https://usehistos.dev/sitemap.xml

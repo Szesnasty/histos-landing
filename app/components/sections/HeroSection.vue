@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import { INSTALL_COMMAND } from '~/content/codeSamples'
-import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS } from '~/content/siteLinks'
+import { GITHUB_REPOSITORY_URL, PYPI_PROJECT_URL, SECTION_ANCHORS } from '~/content/siteLinks'
+import { HISTOS_VERSION } from '~/content/statusContent'
 
 const { parallaxLayerElement } = useHeroParallax()
 const { withBasePath } = useAssetPath()
 
 const RUNTIME_BADGES = ['In-process', 'No proxy', 'Enforce: fail-closed', 'Uses your identity layer'] as const
-const PACKAGE_BADGES = ['Apache-2.0', 'Python ≥ 3.12', 'Core: 0 runtime deps', 'Policy Format Draft 0.1'] as const
+
+// The version leads the package badges: the install command directly above is a
+// promise that something answers it, and the release it resolves to is the first
+// thing a reader checking that promise looks for.
+const PACKAGE_BADGES = [
+  `v${HISTOS_VERSION} on PyPI`,
+  'Apache-2.0',
+  'Python ≥ 3.12',
+  'Core: 0 runtime deps',
+  'Policy Format Draft 0.1',
+] as const
 
 const ARTWORK_ALT_TEXT =
   'Odysseus lashed to the mast of his ship under a full moon, ropes around his chest, as the Sirens sing from ' +
@@ -56,8 +67,9 @@ const ARTWORK_ALT_TEXT =
         <div class="hero__install">
           <CodeBlock :code="INSTALL_COMMAND" language="bash" />
           <p class="hero__install-note">
-            0.1.0 release candidate. Install from source; the PyPI package is not published yet.
-            Core has zero runtime dependencies and YAML support is optional.
+            Installs
+            <a :href="PYPI_PROJECT_URL" target="_blank" rel="noopener">histos {{ HISTOS_VERSION }}</a>
+            from PyPI. Core has zero runtime dependencies and YAML support is optional.
           </p>
         </div>
 
@@ -248,6 +260,14 @@ $hero-padding-bottom-large: 96px;
     margin-top: $space-small;
     font-size: $font-size-detail;
     color: var(--text-tertiary);
+
+    // `a` inherits its colour globally, which inside this note would render the
+    // link as plain tertiary text with no affordance at all.
+    a {
+      color: var(--accent-text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   }
 
   &__badges {

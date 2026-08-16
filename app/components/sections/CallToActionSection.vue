@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS, SPEC_SCHEMA_URL } from '~/content/siteLinks'
+import { HISTOS_VERSION } from '~/content/statusContent'
 
 const { withBasePath } = useAssetPath()
 </script>
@@ -21,7 +22,7 @@ const { withBasePath } = useAssetPath()
 
       <p class="call-to-action__note text-tertiary">
         If you are evaluating policy enforcement for production agents, start with the Python runtime and the
-        policy format.
+        policy format. Both are released: <code>histos {{ HISTOS_VERSION }}</code> is on PyPI under Apache-2.0.
       </p>
     </div>
   </section>

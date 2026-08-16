@@ -31,11 +31,8 @@ jobs:
       - run: npm ci
 
       - name: Generate static site
-        # The site is served from https://<user>.github.io/<repository>/, so every
-        # absolute path needs that prefix. `useAssetPath()` applies it to the
-        # hand-written ones; Nuxt applies it to everything it generates itself.
-        env:
-          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+        # No base-URL override: the site is served from the root of its custom
+        # domain, usehistos.dev, and `nuxt.config.ts` pins `app.baseURL` to `/`.
         run: npm run generate
 
       - name: Disable Jekyll processing
