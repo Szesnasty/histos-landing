@@ -24,7 +24,7 @@ const NAVIGATION_LINKS = [
   <header class="site-header" :class="{ 'site-header--over-artwork': !hasScrolledPastThreshold }">
     <div class="page-container site-header__inner">
       <NuxtLink to="/" class="site-header__brand" aria-label="Histos, home">
-        <MastMark />
+        <HistosMark />
         <span class="site-header__brand-name">Histos</span>
       </NuxtLink>
 

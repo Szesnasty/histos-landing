@@ -79,10 +79,15 @@ export default defineNuxtConfig({
       ],
       link: [
         {
+          // The same gold H as `HistosMark`, on the dark tile, inline as a data
+          // URI so the tab icon costs no request. The accent is written out
+          // rather than referenced: a data URI has no stylesheet to read a
+          // custom property from, so `#e8b04b` here must be kept in step with
+          // `--accent` in `_themes.scss`.
           rel: 'icon',
           type: 'image/svg+xml',
           href:
-            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Cpath d='M16 5v22M9 10h14M11 27c2-3 8-3 10 0' stroke='%23e8b04b' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E",
+            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0d10'/%3E%3Cpath d='M10 7v18M22 7v18M10 13.5h12' stroke='%23e8b04b' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E",
         },
       ],
     },

@@ -73,7 +73,7 @@ const COPYRIGHT_YEAR = 2026
       <div class="site-footer__columns">
         <div class="site-footer__brand">
           <div class="site-footer__brand-row">
-            <MastMark :size-in-pixels="24" />
+            <HistosMark :size-in-pixels="24" />
             <span class="site-footer__brand-name">Histos</span>
           </div>
           <p class="site-footer__tagline text-secondary">Treat the tool interface as a security boundary - in both directions.</p>

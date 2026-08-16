@@ -33,7 +33,7 @@ const ACCESSIBLE_DESCRIPTION =
 
     <div class="policy-constant__constant">
       <div class="policy-constant__constant-head">
-        <MastMark :size-in-pixels="20" />
+        <HistosMark :size-in-pixels="20" />
         <span class="policy-constant__constant-label">policy</span>
       </div>
       <span class="policy-constant__note">
