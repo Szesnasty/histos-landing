@@ -6,15 +6,15 @@ import { RESPONSIBILITY_ROWS } from '~/content/identityContent'
 <template>
   <section id="identity" class="page-section">
     <div class="page-container">
-      <SectionHeading eyebrow="Identity" heading="Histos does not authenticate anybody." />
+      <SectionHeading eyebrow="Identity" heading="Bring your identity. Histos enforces its limits." />
 
       <div class="prose-column section-intro">
         <p class="text-secondary">
-          Identity belongs to your existing system, not to the model and not to Histos.
+          Authentication belongs to your existing system, never to the model.
         </p>
         <p class="text-secondary">
-          Your identity provider establishes who is calling. Histos receives a trusted principal and enforces
-          what that identity may let the agent do.
+          Your host establishes who is calling. Histos receives that trusted principal and enforces what the
+          agent may do on its behalf.
         </p>
       </div>
 

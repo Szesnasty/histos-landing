@@ -8,7 +8,7 @@ import { RELEASE_STATUS_ENTRIES } from '~/content/statusContent'
       <div class="release-status">
         <header class="release-status__head">
           <p class="release-status__eyebrow">Status</p>
-          <h2 class="release-status__title">What exists today</h2>
+          <h2 class="release-status__title">What ships in v0.1.1</h2>
         </header>
 
         <ul class="release-status__entries">
@@ -28,8 +28,7 @@ import { RELEASE_STATUS_ENTRIES } from '~/content/statusContent'
         </ul>
 
         <p class="release-status__note text-secondary">
-          Histos grows from real usage, not from feature inflation. The next layer is driven by what real teams
-          need once policy enforcement moves from one agent to many.
+          Histos stays narrow until real deployments prove which next layer is worth adding.
         </p>
       </div>
     </div>

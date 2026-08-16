@@ -225,9 +225,17 @@ dd code {
 
 .split-layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: $space-large;
   margin-top: $space-xlarge;
   align-items: start;
+
+  // Grid items default to min-width:auto, so a long code line can make the
+  // single mobile column wider than the viewport before the <pre> gets a
+  // chance to scroll. The layout owns the width; code blocks own their scroll.
+  > * {
+    min-width: 0;
+  }
 
   @include from-large {
     grid-template-columns: 1fr 1fr;

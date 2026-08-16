@@ -15,7 +15,7 @@ const NAVIGATION_LINKS = [
   { href: SECTION_ANCHORS.identity, label: 'Identity' },
   { href: SECTION_ANCHORS.format, label: 'Format' },
   { href: SECTION_ANCHORS.scope, label: 'Scope' },
-  { href: SECTION_ANCHORS.openCore, label: 'Open core' },
+  { href: SECTION_ANCHORS.openCore, label: 'Open source' },
   { href: SECTION_ANCHORS.status, label: 'Status' },
 ] as const
 </script>

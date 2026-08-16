@@ -14,27 +14,27 @@ export interface NumberedArgument {
 export const POLICY_OVER_CODE_ARGUMENTS: NumberedArgument[] = [
   {
     title: 'One place for the boundary',
-    body: 'Security rules live in a dedicated policy instead of being scattered across handlers, tools and agent code.',
+    body: 'Security rules live in one policy instead of being scattered across tools, handlers and agent code.',
   },
   {
     title: 'Default-deny by design',
-    body: 'A new or forgotten tool does not silently become trusted just because nobody added another if.',
+    body: 'A new or forgotten tool stays blocked until the policy explicitly grants it.',
   },
   {
     title: 'Reviewable security changes',
-    body: 'Changing a refund limit from 500 to 5000 becomes an obvious policy diff instead of one line hidden inside application logic.',
+    body: 'Changing a refund limit from 500 to 5000 becomes an obvious policy diff, not a hidden application change.',
   },
   {
     title: 'Portable semantics',
-    body: 'Ownership, binding, confirmation, argument limits and output controls mean the same thing across compatible runtimes.',
+    body: 'Ownership, trusted binding, confirmation, limits and output controls keep the same declared meaning.',
   },
   {
     title: 'Coverage and verification',
-    body: 'Histos can validate policy, detect uncovered tool surfaces, emit stable decision codes and verify runtime conformance.',
+    body: 'Validate policy, find uncovered tool surfaces, detect drift and fail CI before deployment.',
   },
   {
     title: 'Audit without rebuilding it yourself',
-    body: 'Every decision can be tied to the tool, principal, policy and reason, without every team inventing its own logging convention.',
+    body: 'Tie each decision to the tool, principal, policy and reason without inventing another logging convention.',
   },
 ]
 

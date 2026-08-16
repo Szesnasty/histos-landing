@@ -9,30 +9,30 @@ import type { TitledParagraph } from './problemContent'
 export const SCOPE_LIMITATIONS: TitledParagraph[] = [
   {
     title: 'It does not detect prompt injection',
-    body: 'That is a different class of system, working on meaning rather than on capability.',
+    body: 'It works on capability, not on interpreting whether text is malicious.',
   },
   {
     title: 'It does not authenticate callers',
-    body: 'It relies on a trusted identity established by your environment, and cannot verify that you established it correctly.',
+    body: 'It consumes a principal established by your host and cannot verify that the host bound it correctly.',
   },
   {
     title: 'It does not replace backend authorization',
-    body: 'The system of record remains the final authority, especially between the moment of the check and the moment of execution.',
+    body: 'The system of record remains the final authority, especially across the check-to-execution gap.',
   },
   {
     title: 'It does not protect tools it never sees',
-    body: 'Complete mediation depends on the adapter and the integration. A tool nobody wrapped is a tool nobody bounded.',
+    body: 'Complete mediation depends on your integration. A tool you do not wrap is a tool Histos cannot bound.',
   },
   {
     title: 'It does not bound a whole agent run',
-    body: 'Budgets and rate limits count per identity and tool, inside one process. There is no run or session scope yet, so the honest claim is a ceiling on every single action - not a ceiling on how many actions a loop may attempt.',
+    body: 'Budgets and rate limits are per identity and tool inside one process. There is no run or session scope yet.',
   },
   {
     title: 'It does not solve human intent',
-    body: 'It enforces what the policy allows, not what someone later wishes it had said.',
+    body: 'It enforces the written policy, not what someone later wishes that policy had meant.',
   },
   {
     title: 'It does not run an agent fleet',
-    body: 'There is no agent registry, identity provider, sandbox or hosted control plane. Histos is the local Python enforcement layer; organization-wide operations are a separate product problem.',
+    body: 'There is no agent registry, identity provider, sandbox or hosted control plane. Histos is the local enforcement layer inside a Python host.',
   },
 ]

@@ -6,14 +6,14 @@ export interface TitledParagraph {
 export const PROBLEM_CARDS: TitledParagraph[] = [
   {
     title: 'Untrusted content reaches the model',
-    body: 'Documents, retrieved passages, tool output and user input all arrive in the same context window. Roles do carry different levels of trust, and providers now train against an instruction hierarchy - but a model-side hierarchy is a learned disposition, not a deterministic authorization boundary. It moves how likely the model is to comply; it does not decide what the call is allowed to do.',
+    body: 'Documents, retrieved passages, tool output and user input share one context. Instruction hierarchy can reduce bad behaviour; it cannot authorize an action.',
   },
   {
     title: 'The model may still call tools',
-    body: 'Even when the instruction came from the wrong place, the resulting tool call can look perfectly valid - correct name, well-formed arguments, plausible intent.',
+    body: 'A manipulated model can still emit a perfectly valid-looking call: the right tool name, well-formed arguments and plausible intent.',
   },
   {
     title: 'Detection is not a hard boundary',
-    body: 'A detector may help. It does not deterministically decide what the agent can and cannot do, and it is answering a question with no stable ground truth.',
+    body: 'Detection can lower risk. It cannot make a deterministic decision about which capability this principal may exercise on this resource.',
   },
 ]

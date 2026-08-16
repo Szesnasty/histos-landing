@@ -10,13 +10,13 @@ function formatOrdinal(index: number): string {
 <template>
   <section id="why-policy" class="page-section">
     <div class="page-container">
-      <SectionHeading eyebrow="Why a policy" heading="Why not just write the checks in code?" />
+      <SectionHeading eyebrow="Why a policy" heading="When policy beats another if." />
 
       <div class="prose-column section-intro">
-        <p class="why-policy__concession">For one agent with three tools, you probably should.</p>
+        <p class="why-policy__concession">For one agent with three tools, write the checks in code.</p>
         <p class="text-secondary">
-          Histos starts paying off when the same security boundary has to survive across more tools, agents,
-          runtimes and teams.
+          Histos starts paying off when the same boundary must stay consistent across more tools, agents and
+          teams.
         </p>
       </div>
 

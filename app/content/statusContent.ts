@@ -6,7 +6,7 @@
  * version that disagrees with itself in three places is worse than no version
  * at all. Bump it here when a release goes out.
  */
-export const HISTOS_VERSION = '0.1.0'
+export const HISTOS_VERSION = '0.1.1'
 
 export interface ReleaseStatusEntry {
   title: string
@@ -17,22 +17,27 @@ export interface ReleaseStatusEntry {
 export const RELEASE_STATUS_ENTRIES: ReleaseStatusEntry[] = [
   {
     title: 'Histos Python',
-    body: `Released: v${HISTOS_VERSION} on PyPI, the reference runtime, under Apache-2.0.`,
+    body: `v${HISTOS_VERSION} is live on PyPI: the Apache-2.0 reference runtime for Python 3.12+.`,
     availableNow: true,
   },
   {
     title: 'Histos Policy Format',
-    body: 'Draft 0.1: implemented, documented, and pinned by a conformance corpus.',
+    body: 'Draft 0.1 is implemented, documented, backed by JSON Schema and pinned by a conformance corpus.',
     availableNow: true,
   },
   {
     title: 'CLI and developer workflow',
-    body: 'Ships with the package: policy loading, validation, review, coverage, tool import and definition drift as CI gates.',
+    body: 'Validation, review, coverage, tool import and definition-drift checks ship in the package and fit into CI.',
+    availableNow: true,
+  },
+  {
+    title: 'Raw Python, LangChain and LangGraph',
+    body: 'The framework-free core, LangChain StructuredTool adapter and LangGraph ToolNode execution path ship and are exercised in the repository demos.',
     availableNow: true,
   },
   {
     title: 'Additional runtimes and organizational tooling',
-    body: 'Evolves after real adoption, not before it.',
+    body: 'Not shipped. Additional runtimes and fleet operations wait for evidence from real adoption.',
     availableNow: false,
   },
 ]

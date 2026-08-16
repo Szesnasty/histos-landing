@@ -18,14 +18,13 @@ export const SITE_NAME = 'Histos'
  * Python policy gate, not a governance platform - because a result that
  * promises something the page does not deliver is a bounce, not a visit.
  *
- * The description is deliberately 158 characters: long enough to carry both
- * directions of the boundary, short enough to survive the ~160-character
- * truncation in a result listing intact.
+ * The description stays below 160 characters so the integration paths and the
+ * boundary survive ordinary search-result truncation intact.
  */
-export const SITE_TITLE = 'Histos - the small Python policy gate for agent tool calls'
+export const SITE_TITLE = 'Histos - deterministic policy enforcement for Python agent tools'
 
 export const SITE_DESCRIPTION =
-  'Histos is a small in-process Python policy gate around agent tool calls: authorize proposed actions before execution, constrain tool output before it returns.'
+  'Fail-closed policy for agent tool calls in raw Python, LangChain and LangGraph. Bound actions before execution; constrain returned data before model context.'
 
 /**
  * The hero painting, reused as the social card.

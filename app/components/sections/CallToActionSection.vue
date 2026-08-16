@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GITHUB_REPOSITORY_URL, SECTION_ANCHORS, SPEC_SCHEMA_URL } from '~/content/siteLinks'
+import { POLICY_GUIDE_URL, PYPI_PROJECT_URL, QUICKSTART_URL, SPEC_SCHEMA_URL } from '~/content/siteLinks'
 import { HISTOS_VERSION } from '~/content/statusContent'
 
 const { withBasePath } = useAssetPath()
@@ -8,21 +8,20 @@ const { withBasePath } = useAssetPath()
 <template>
   <section id="get-started" class="page-section page-section--sunken">
     <div class="page-container call-to-action">
-      <h2>Start with the boundary.</h2>
+      <h2>Bound one real tool today.</h2>
       <p class="section-lede call-to-action__lede">
-        Install Histos, protect a real tool surface, and decide the limits before the model meets the content
-        that will try to move them.
+        Install Histos, wrap a real tool and make its limits explicit before the model reads untrusted content.
       </p>
 
       <div class="call-to-action__actions">
-        <AppButton :href="GITHUB_REPOSITORY_URL" variant="primary" external>Get started</AppButton>
-        <AppButton :href="SECTION_ANCHORS.format">Read the docs</AppButton>
+        <AppButton :href="QUICKSTART_URL" variant="primary" external>Run the quickstart</AppButton>
+        <AppButton :href="POLICY_GUIDE_URL" external>Write a policy</AppButton>
+        <AppButton :href="PYPI_PROJECT_URL" external>PyPI v{{ HISTOS_VERSION }}</AppButton>
         <AppButton :href="withBasePath(SPEC_SCHEMA_URL)">The JSON Schema</AppButton>
       </div>
 
       <p class="call-to-action__note text-tertiary">
-        If you are evaluating policy enforcement for production agents, start with the Python runtime and the
-        policy format. Both are released: <code>histos {{ HISTOS_VERSION }}</code> is on PyPI under Apache-2.0.
+        <code>histos {{ HISTOS_VERSION }}</code> and Policy Format Draft 0.1 are released under Apache-2.0.
       </p>
     </div>
   </section>

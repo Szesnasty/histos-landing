@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { REFUND_POLICY_YAML, PROTECT_TOOLS_PYTHON } from '~/content/codeSamples'
 import { POLICY_FORMAT_PRINCIPLES } from '~/content/policyFormatContent'
-import { SPEC_SCHEMA_URL } from '~/content/siteLinks'
+import { POLICY_GUIDE_URL, SPEC_SCHEMA_URL } from '~/content/siteLinks'
 
 const { withBasePath } = useAssetPath()
 </script>
@@ -9,13 +9,12 @@ const { withBasePath } = useAssetPath()
 <template>
   <section id="format" class="page-section page-section--sunken">
     <div class="page-container">
-      <SectionHeading eyebrow="The format" heading="Policy is the portable artifact." />
+      <SectionHeading eyebrow="The format" heading="Put the security boundary in the diff." />
 
       <div class="prose-column section-intro">
-        <p class="text-secondary">Histos is not just a Python library. The deeper idea is portable policy.</p>
+        <p class="text-secondary">The policy is the reviewable security artifact; Python is its first runtime.</p>
         <p class="text-secondary">
-          A policy should be something you can review, diff, validate, version and eventually enforce across
-          more than one runtime.
+          Review it, diff it, validate it and version it like code.
         </p>
       </div>
 
@@ -24,9 +23,9 @@ const { withBasePath } = useAssetPath()
         <div>
           <CodeBlock :code="PROTECT_TOOLS_PYTHON" language="python" label="and in your host" />
           <p class="policy-format__note text-secondary">
-            The policy is the artifact; the library is what reads it. Your editor can read it too -
-            <code>$schema</code> points at <a :href="withBasePath(SPEC_SCHEMA_URL)">a file this site serves</a>, so a typo is
-            underlined where you wrote it rather than refused at load time.
+            Your editor can validate it too: <code>$schema</code> points at
+            <a :href="withBasePath(SPEC_SCHEMA_URL)">the schema served here</a>. Start with the
+            <a :href="POLICY_GUIDE_URL" target="_blank" rel="noopener">policy-writing guide</a>.
           </p>
         </div>
       </div>

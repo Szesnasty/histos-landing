@@ -5,10 +5,10 @@ import { SCOPE_LIMITATIONS } from '~/content/scopeContent'
 <template>
   <section id="scope" class="page-section">
     <div class="page-container">
-      <SectionHeading eyebrow="Scope" heading="What Histos does not do" />
+      <SectionHeading eyebrow="Scope" heading="Deliberately narrow. Explicitly limited." />
 
       <p class="section-lede prose-column">
-        Every security boundary has limits. The useful thing is to say them out loud.
+        Histos earns trust by naming the jobs it does not do.
       </p>
 
       <ul class="scope__list">

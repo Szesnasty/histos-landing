@@ -18,8 +18,8 @@ const { withBasePath } = useAssetPath()
     <div class="page-container">
       <SectionHeading
         eyebrow="Measured"
-        heading="The boundary is worth least where the attack looks like one"
-        subheading="Seven models, six scenarios, four temperatures. 749 paired comparisons, 1,498 agent executions."
+        heading="Models refused the obvious attacks. Policy caught the ordinary-looking one."
+        subheading="Seven models. Six scenarios. Four temperatures. 1,498 agent executions."
       />
 
       <div class="sweep-summary__grid">

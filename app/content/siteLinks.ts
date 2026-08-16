@@ -1,3 +1,5 @@
+import { HISTOS_VERSION } from './statusContent'
+
 /**
  * Every outbound destination the site uses, in one place.
  *
@@ -8,7 +10,10 @@
 export const GITHUB_REPOSITORY_URL = 'https://github.com/Szesnasty/histos'
 
 /** The published distribution. `pip install histos[yaml]` resolves to this. */
-export const PYPI_PROJECT_URL = 'https://pypi.org/project/histos/'
+export const PYPI_PROJECT_URL = `https://pypi.org/project/histos/${HISTOS_VERSION}/`
+
+export const QUICKSTART_URL = `${GITHUB_REPOSITORY_URL}#see-the-boundary-hold`
+export const POLICY_GUIDE_URL = `${GITHUB_REPOSITORY_URL}/blob/main/docs/writing-policies.md`
 
 export const CHANGELOG_URL = `${GITHUB_REPOSITORY_URL}/blob/main/CHANGELOG.md`
 

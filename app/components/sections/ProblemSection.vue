@@ -5,13 +5,13 @@ import { PROBLEM_CARDS } from '~/content/problemContent'
 <template>
   <section id="problem" class="page-section page-section--sunken">
     <div class="page-container">
-      <SectionHeading eyebrow="The problem" heading="Agents do not fail where chatbots fail." />
+      <SectionHeading eyebrow="The problem" heading="A tool call turns model failure into a real action." />
 
       <div class="prose-column section-intro">
         <p>A chatbot can say something wrong. An agent can <em>do</em> something wrong.</p>
         <p class="text-secondary">
-          Once a model can call tools, read internal data, modify records or trigger external systems, prompt
-          injection is no longer only a content problem. It becomes an execution problem.
+          Once a model can modify records or trigger external systems, prompt injection becomes an authorization
+          problem at the tool boundary.
         </p>
       </div>
 
@@ -20,7 +20,7 @@ import { PROBLEM_CARDS } from '~/content/problemContent'
       </div>
 
       <p class="section-closing-line">
-        If the model can be manipulated, the boundary must live somewhere the model cannot negotiate with.
+        Assume the model can be manipulated. Put the boundary somewhere it cannot negotiate with.
       </p>
     </div>
   </section>

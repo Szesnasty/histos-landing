@@ -9,23 +9,21 @@ const MAST_ARTWORK_ALT_TEXT =
 <template>
   <section id="answer" class="page-section">
     <div class="page-container">
-      <SectionHeading eyebrow="The answer" heading="Do not ask the model to resist the Sirens." />
+      <SectionHeading eyebrow="The answer" heading="Put the decision outside the model." />
 
       <div class="split-layout split-layout--centered">
         <div class="prose-column">
           <p class="section-lede">
-            He made the decision earlier, while he still could. That is what policy enforcement is:
-            <strong>a commitment made before the model encounters the world.</strong>
+            Policy enforcement is a commitment made before the model encounters the world.
           </p>
           <p class="answer-section__paragraph text-secondary">
-            Histos does not try to interpret intent or guess whether a prompt is malicious. It evaluates a
-            request against static policy and a trusted identity, then allows it or denies it before the tool
-            executes.
+            Histos does not interpret intent. It evaluates each proposed call against static policy and trusted
+            runtime context, then allows or denies it before the tool executes.
           </p>
           <p class="answer-section__paragraph text-secondary">
-            It is deliberately not a broad agent-governance platform. Those platforms combine identity,
-            discovery, sandboxing and fleet operations. Histos is the smaller enforcement primitive inside one
-            Python host: authorize the proposed action, execute only within policy, then constrain what returns.
+            Histos is not an agent platform, proxy, identity provider or sandbox. It is the narrow enforcement
+            layer inside your Python process: authorize the action, run only what policy permits, constrain what
+            returns.
           </p>
         </div>
 

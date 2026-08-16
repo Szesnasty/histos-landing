@@ -5,14 +5,13 @@ import { OPEN_SOURCE_CAPABILITIES, COMMERCIAL_CAPABILITIES } from '~/content/ope
 <template>
   <section id="open-core" class="page-section page-section--sunken">
     <div class="page-container">
-      <SectionHeading eyebrow="Open core" heading="Everything that enforces is open." />
+      <SectionHeading eyebrow="Open source" heading="The enforcement boundary is Apache-2.0." />
 
       <div class="prose-column section-intro">
-        <p class="text-secondary">The security boundary itself is open source.</p>
+        <p class="text-secondary">You can inspect, test and own the code that decides.</p>
         <p class="text-secondary">
-          Histos Python, the policy format and the deterministic enforcement logic are available under
-          Apache-2.0. The commercial layer is not “better security for one deployment”. It is what
-          organizations need when enforcement has to operate across teams, services and time.
+          Histos Python, the policy format and deterministic enforcement are Apache-2.0. A future commercial
+          layer would operate that same boundary across teams and services — not hide stronger enforcement.
         </p>
       </div>
 
@@ -32,7 +31,7 @@ import { OPEN_SOURCE_CAPABILITIES, COMMERCIAL_CAPABILITIES } from '~/content/ope
       </div>
 
       <p class="section-closing-line">
-        Open source gives you the boundary. The commercial layer helps you operate that boundary at scale.
+        Open source is the boundary. Any commercial layer begins with operating it at scale.
       </p>
     </div>
   </section>

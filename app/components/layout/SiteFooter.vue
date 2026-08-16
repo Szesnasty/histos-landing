@@ -2,6 +2,7 @@
 import {
   CHANGELOG_URL,
   GITHUB_REPOSITORY_URL,
+  POLICY_GUIDE_URL,
   PYPI_PROJECT_URL,
   SECTION_ANCHORS,
   SPEC_CONFORMANCE_MANIFEST_URL,
@@ -23,6 +24,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: 'The library',
     links: [
       { label: `histos ${HISTOS_VERSION} on PyPI`, href: PYPI_PROJECT_URL, external: true },
+      { label: 'Quickstart and installation', href: `${GITHUB_REPOSITORY_URL}#see-the-boundary-hold`, external: true },
       { label: 'Source', href: GITHUB_REPOSITORY_URL, external: true },
       { label: 'Changelog', href: CHANGELOG_URL, external: true },
       {
@@ -45,6 +47,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: 'The format',
     links: [
+      { label: 'How to write a policy', href: POLICY_GUIDE_URL, external: true },
       { label: 'Policy Format Draft 0.1', to: landingSection(SECTION_ANCHORS.format) },
       { label: 'JSON Schema', href: withBasePath(SPEC_SCHEMA_URL) },
       { label: 'Decision codes', href: withBasePath(SPEC_DECISION_CODES_URL) },
@@ -58,7 +61,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'The problem', to: landingSection(SECTION_ANCHORS.problem) },
       { label: 'Why a policy', to: landingSection(SECTION_ANCHORS.whyPolicy) },
       { label: 'Scope and limits', to: landingSection(SECTION_ANCHORS.scope) },
-      { label: 'Open core boundary', to: landingSection(SECTION_ANCHORS.openCore) },
+      { label: 'Open-source boundary', to: landingSection(SECTION_ANCHORS.openCore) },
       { label: 'Status', to: landingSection(SECTION_ANCHORS.status) },
     ],
   },
@@ -76,7 +79,7 @@ const COPYRIGHT_YEAR = 2026
             <HistosMark :size-in-pixels="24" />
             <span class="site-footer__brand-name">Histos</span>
           </div>
-          <p class="site-footer__tagline text-secondary">Treat the tool interface as a security boundary - in both directions.</p>
+          <p class="site-footer__tagline text-secondary">Deterministic policy enforcement at the Python tool boundary.</p>
           <p class="site-footer__etymology text-tertiary">
             ἱστός - the mast, from ἵστημι, <em>to stand</em>. The thing that stands.
           </p>

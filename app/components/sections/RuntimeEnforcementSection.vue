@@ -12,15 +12,19 @@ import {
     <div class="page-container">
       <SectionHeading
         eyebrow="Runtime enforcement"
-        heading="Two gates around every tool call."
-        subheading="A hard boundary at the tool surface."
+        heading="Block the call. Constrain the result."
+        subheading="Two deterministic checks at the tool boundary."
       />
 
       <div class="prose-column section-intro">
-        <p class="text-secondary">Histos wraps the tool boundary on both sides.</p>
+        <p class="text-secondary">Histos mediates both directions of the tool boundary.</p>
         <p class="text-secondary">
-          Before execution, it decides whether the call is allowed at all. After execution, it decides what is
-          allowed to return to the model.
+          Before execution, it decides whether the action may happen. After execution, it decides what may
+          return to the model.
+        </p>
+        <p class="text-secondary">
+          Use the framework-free core with ordinary Python callables, or protect the tool objects handed to
+          LangChain and LangGraph.
         </p>
       </div>
 
@@ -29,9 +33,9 @@ import {
       <div class="split-layout enforcement__gate-copy">
         <div>
           <p class="enforcement__gate-eyebrow">Before the tool runs</p>
-          <h3>Stop the action before it exists.</h3>
+          <h3>Deny before side effects.</h3>
           <p class="enforcement__paragraph text-secondary">
-            Histos evaluates the proposed call against policy and trusted runtime context before the underlying
+            The proposed call is evaluated against policy and trusted runtime context before the underlying
             function executes.
           </p>
           <dl class="enforcement__checks">
@@ -48,10 +52,9 @@ import {
 
         <div>
           <p class="enforcement__gate-eyebrow">Before the result gets back</p>
-          <h3>Once the call is allowed to execute, its output is still not trusted to re-enter the model.</h3>
+          <h3>Allowed execution does not imply trusted output.</h3>
           <p class="enforcement__paragraph text-secondary">
-            Histos enforces the return contract before tool output - or an exception - re-enters the agent
-            context.
+            The return contract is enforced before tool output — or an exception — re-enters model context.
           </p>
           <dl class="enforcement__checks">
             <div v-for="check in POST_TOOL_CHECKS" :key="check.name">

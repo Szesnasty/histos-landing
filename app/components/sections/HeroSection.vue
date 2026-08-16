@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { INSTALL_COMMAND } from '~/content/codeSamples'
-import { GITHUB_REPOSITORY_URL, PYPI_PROJECT_URL, SECTION_ANCHORS } from '~/content/siteLinks'
+import { GITHUB_REPOSITORY_URL, POLICY_GUIDE_URL, PYPI_PROJECT_URL, QUICKSTART_URL } from '~/content/siteLinks'
 import { HISTOS_VERSION } from '~/content/statusContent'
 
 const { parallaxLayerElement } = useHeroParallax()
 const { withBasePath } = useAssetPath()
 
-const RUNTIME_BADGES = ['In-process', 'No proxy', 'Enforce: fail-closed', 'Uses your identity layer'] as const
+const RUNTIME_BADGES = ['In-process', 'No proxy', 'Fail-closed in enforce mode', 'Bring your identity'] as const
+const FRAMEWORK_BADGES = ['Raw Python', 'LangChain', 'LangGraph'] as const
 
 // The version leads the package badges: the install command directly above is a
 // promise that something answers it, and the release it resolves to is the first
@@ -46,21 +47,27 @@ const ARTWORK_ALT_TEXT =
         <p class="hero__eyebrow">ἱστός - the mast</p>
         <h1>The model proposes.<br >Policy decides.</h1>
 
-        <p class="hero__pitch">A small Python policy gate around agent tool calls - in both directions.</p>
+        <p class="hero__pitch">Deterministic policy enforcement for Python agent tool calls.</p>
         <p class="hero__lede">
-          Control which tools an agent may call, with which arguments, against which resources, and what may
-          leave the system.
+          Bound the tool, arguments, resource and returned data before model output can touch the real world —
+          or flow back into context.
         </p>
 
+        <div class="hero__frameworks" aria-label="Supported integration paths">
+          <span>Works with</span>
+          <ul>
+            <li v-for="framework in FRAMEWORK_BADGES" :key="framework">{{ framework }}</li>
+          </ul>
+        </div>
+
         <p class="hero__myth">
-          Odysseus did not try to silence the Sirens. He bound himself to the mast before the singing began.
-          Histos works the same way: it constrains an agent's future actions before the model encounters
-          untrusted content.
+          Odysseus did not silence the Sirens. He bound himself before they started singing. Histos makes the
+          same move: decide the agent's capabilities before it reads untrusted content.
         </p>
 
         <div class="hero__actions">
-          <AppButton :href="GITHUB_REPOSITORY_URL" variant="primary" external>Quickstart</AppButton>
-          <AppButton :href="SECTION_ANCHORS.format" variant="ghost">Read the policy format</AppButton>
+          <AppButton :href="QUICKSTART_URL" variant="primary" external>Run the quickstart</AppButton>
+          <AppButton :href="POLICY_GUIDE_URL" variant="ghost" external>Write a policy</AppButton>
           <AppButton :href="GITHUB_REPOSITORY_URL" variant="ghost" external>GitHub</AppButton>
         </div>
 
@@ -69,8 +76,8 @@ const ARTWORK_ALT_TEXT =
           <p class="hero__install-note">
             Installs
             <a :href="PYPI_PROJECT_URL" target="_blank" rel="noopener">histos {{ HISTOS_VERSION }}</a>
-            from PyPI, with zero runtime dependencies. Policies in JSON need nothing more;
-            the YAML form shown below adds one: <code>pip install "histos[yaml]"</code>.
+            from PyPI and requires Python 3.12+. The core has zero runtime dependencies. For YAML policies,
+            install the optional parser: <code>pip install "histos[yaml]"</code>.
           </p>
         </div>
 
@@ -214,6 +221,39 @@ $hero-padding-bottom-large: 96px;
 
     @include from-medium {
       font-size: $font-size-body-large;
+    }
+  }
+
+  &__frameworks {
+    margin-top: $space-base;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-tiny $space-small;
+    font-size: $font-size-body-small;
+    color: var(--text-secondary);
+
+    > span {
+      font-weight: $font-weight-semibold;
+      color: var(--text-primary);
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $space-tiny;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      padding: 3px 9px;
+      border: $border-hairline solid var(--border-strong);
+      border-radius: $radius-base;
+      background: var(--surface-raised);
+      color: var(--text-primary);
+      font-weight: $font-weight-semibold;
     }
   }
 
